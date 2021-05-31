@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -16,20 +17,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.spring.exception.CustomerNotFoundException;
 import com.cg.spring.model.Customer;
-
+import com.cg.spring.repository.ICustomerRepository;
 import com.cg.spring.service.ICustomerService;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class CustomerController {
 
 	@Autowired
 	ICustomerService custService;
+	@Autowired
+	ICustomerRepository custRepo;
 
 	// Add
 	@PostMapping("/customer")
 	public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
+		Customer cust=custRepo.findCustomerByEmailId(customer.getEmailId());
+		if(cust==null) {
 		custService.addCustomer(customer);
 		return new ResponseEntity<>(customer, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(customer,HttpStatus.ALREADY_REPORTED);
 	}
 
 	// Update

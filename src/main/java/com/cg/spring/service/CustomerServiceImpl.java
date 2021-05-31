@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.cg.spring.model.Customer;
 import com.cg.spring.model.Order;
+import com.cg.spring.repository.ICustomerLoginRepository;
 import com.cg.spring.repository.ICustomerRepository;
 import com.cg.spring.repository.IOrderRepository;
 
@@ -18,6 +19,8 @@ public class CustomerServiceImpl implements ICustomerService {
 	ICustomerRepository custRepo;
 	@Autowired
 	IOrderRepository orderRepo;
+	@Autowired
+	ICustomerLoginRepository loginRepo;
 
 	@Override
 	public Customer addCustomer(Customer customer) {
@@ -79,6 +82,11 @@ public class CustomerServiceImpl implements ICustomerService {
 	@Override
 	public List<Order> showAllOrders() {
 		return orderRepo.findAll();
+	}
+
+	@Override
+	public Customer findCustomerByEmailId(String email) {
+		return custRepo.findCustomerByEmailId(email);
 	}
 
 }

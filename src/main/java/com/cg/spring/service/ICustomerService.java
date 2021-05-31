@@ -20,4 +20,6 @@ public interface ICustomerService {
 	public Customer deleteCustomer(int customerid);
 
 	public List<Order> showAllOrders();
+	
+	public Customer findCustomerByEmailId(String email);
 }

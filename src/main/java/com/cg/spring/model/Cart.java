@@ -13,7 +13,9 @@ import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -22,13 +24,13 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @ToString
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cart {
 	// Fields
 	@Id
 	@NonNull
 	private long cartId;
-	@NonNull
-	private int customerId;
 	@NonNull
 	private String medicineName;
 	@NonNull
@@ -51,6 +53,5 @@ public class Cart {
 	}
 
 	// Constructor
-	public Cart() {
-	}
+	
 }
