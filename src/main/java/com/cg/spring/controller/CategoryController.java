@@ -33,7 +33,7 @@ public class CategoryController {
 
 	// This controller is used to get a specific category on basis of ID
 	@GetMapping("/category/id/{id}")
-	public ResponseEntity<Category> viewCategory(@PathVariable("id") String categoryId) {
+	public ResponseEntity<Category> viewCategory(@PathVariable("id") int categoryId) {
 		logger.info("View category by id");
 		Category cat = catService.viewCategory(categoryId);
 		if (cat == null) {
@@ -62,7 +62,7 @@ public class CategoryController {
 	// and request the service to perform the action and returns the message as
 	// deleted else throw exception
 	@DeleteMapping("/category/{id}")
-	public ResponseEntity<Category> deleteCategory(@PathVariable("id") String categoryId) {
+	public ResponseEntity<Category> deleteCategory(@PathVariable("id") int categoryId) {
 		logger.info("Delete category by id");
 		Category cat = catService.deleteCategory(categoryId);
 		if (cat == null) {
@@ -86,7 +86,7 @@ public class CategoryController {
 
 	// This controller is used to get a specific medicine on basis of medicineId
 	@GetMapping("/category/{id}")
-	public ResponseEntity<Medicine> viewMedicineById(@PathVariable("id") String medicineId) {
+	public ResponseEntity<Medicine> viewMedicineById(@PathVariable("id") int medicineId) {
 		logger.info("View category by medicine id");
 		Medicine med = catService.viewMedicineById(medicineId);
 		if (med == null) {

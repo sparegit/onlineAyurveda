@@ -111,7 +111,7 @@ public class OrderController {
 	// database based on medicine id and request to the service to perform the
 	// action
 	@GetMapping("/orders/list/{id}")
-	public ResponseEntity<List<Order>> getOrderListBasedOnMedicineId(@PathVariable("id") String id) {
+	public ResponseEntity<List<Order>> getOrderListBasedOnMedicineId(@PathVariable("id") int id) {
 		logger.info("View all orders based on medicine id");
 		List<Order> ord = orderService.getOrderListBasedOnMedicineId(id);
 		if (ord == null) {

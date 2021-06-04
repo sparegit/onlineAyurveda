@@ -80,7 +80,7 @@ class OrderServiceTest {
 	// Testing whether the given medicine fetches the order or not.
 	@Test
 	void testGetOrderListBasedOnMedicineId() {
-		Medicine med = new Medicine("144", "asparagus", 499f, LocalDate.parse("2020-03-13"),
+		Medicine med = new Medicine(144, "asparagus", 499f, LocalDate.parse("2020-03-13"),
 				LocalDate.parse("2022-06-22"));
 		List<Medicine> medList = new ArrayList<>();
 		medList.add(med);
@@ -92,7 +92,7 @@ class OrderServiceTest {
 		for (int i = 0; i < orders.size(); i++) {
 			List<Medicine> medicines = orders.get(i).getMedicineList();
 			for (int j = 0; j < medicines.size(); j++) {
-				if (medicines.get(j).getMedicineId() == "144") {
+				if (medicines.get(j).getMedicineId() == 144) {
 					ordersWithMedId.add(orders.get(i));
 				}
 			}

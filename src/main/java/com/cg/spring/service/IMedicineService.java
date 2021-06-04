@@ -10,7 +10,7 @@ import com.cg.spring.model.Order;
 @Service
 public interface IMedicineService {
 	// Method to be override by the implementing class
-	public Medicine viewMedicine(String medicineId);
+	public Medicine viewMedicine(int medicineId);
 
 	// Method to be override by the implementing class
 	public List<Medicine> showAllMedicine();
@@ -19,16 +19,16 @@ public interface IMedicineService {
 	public Medicine addMedicine(Medicine medicine);
 
 	// Method to be override by the implementing class
-	public Medicine deleteMedicine(String medicineId);
+	public Medicine deleteMedicine(int medicineId);
 
 	// Method to be override by the implementing class
 	public Medicine updateMedicine(Medicine medicine);
 
 	// Method to be override by the implementing class
-	public Category viewCategoryById(String categoryId);
+	public Category viewCategoryById(int categoryId);
 
 	// Method to be override by the implementing class
-	public Medicine updateMedicineName(String medicineId, Medicine medicine);
+	public Medicine updateMedicineName(int medicineId, Medicine medicine);
 
 	// Method to be override by the implementing class
 	public List<Order> getOrderList();

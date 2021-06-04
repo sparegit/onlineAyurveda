@@ -34,7 +34,7 @@ class CategoryServiceTest {
 	@Test
 	@Disabled
 	public void viewCategory() {
-		Category cat = catService.viewCategory("2");
+		Category cat = catService.viewCategory(2);
 		logger.info(cat);
 		assertEquals("caugh", cat.getCategoryName());
 	}
@@ -43,7 +43,7 @@ class CategoryServiceTest {
 	@Test
 	@Disabled
 	public void deleteCategory() {
-		Category cat = catService.deleteCategory("4");
+		Category cat = catService.deleteCategory(4);
 		logger.info(cat);
 		assertEquals("4", cat.getCategoryId());
 	}
@@ -52,7 +52,7 @@ class CategoryServiceTest {
 	@Test
 	@Disabled
 	public void addCategory() {
-		Category cat = new Category("5", "caugh");
+		Category cat = new Category(5, "caugh");
 		Category persistedCat = catService.addCategory(cat);
 		logger.info(persistedCat);
 		assertEquals("4", persistedCat.getCategoryId());
@@ -64,7 +64,7 @@ class CategoryServiceTest {
 	@Test
 	public void updateCategory() {
 		Category cat = new Category();
-		cat.setCategoryId("3");
+		cat.setCategoryId(3);
 		cat.setCategoryName("cold");
 		Category updatecat = catService.updateCategory(cat);
 		logger.info(updatecat);
@@ -74,7 +74,7 @@ class CategoryServiceTest {
 	@Test
 	@Disabled
 	public void viewMedicineById() {
-		Medicine med = catService.viewMedicineById("1");
+		Medicine med = catService.viewMedicineById(1);
 		logger.info(med);
 		assertEquals("ayurveda", med.getMedicineName());
 	}

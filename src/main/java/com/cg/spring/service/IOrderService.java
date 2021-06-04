@@ -23,7 +23,7 @@ public interface IOrderService {
 		public Order cancelOrder(int id);
 
 		// Method to be override by the implementing class
-		public List<Order> getOrderListBasedOnMedicineId(String medicineid);
+		public List<Order> getOrderListBasedOnMedicineId(int medicineid);
 
 		// Method to be override by the implementing class
 		public List<Order> findAllOrderByOrderDate(String orderDate);

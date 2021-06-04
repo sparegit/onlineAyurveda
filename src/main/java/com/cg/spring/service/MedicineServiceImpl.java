@@ -27,7 +27,7 @@ public class MedicineServiceImpl implements IMedicineService {
 	IOrderRepository orderRepo;
 	// Get a specific medicine of the given ID
 	@Override
-	public Medicine viewMedicine(String medicineId) {
+	public Medicine viewMedicine(int medicineId) {
 		logger.info("View medicine by id");
 		Optional<Medicine> opt = medRepo.findById(medicineId);
 		if (!opt.isPresent()) {
@@ -49,7 +49,7 @@ public class MedicineServiceImpl implements IMedicineService {
 	}
 	// Used to delete the medicine
 	@Override
-	public Medicine deleteMedicine(String medicineId) {
+	public Medicine deleteMedicine(int medicineId) {
 		logger.info("Delete medicine by id");
 		Optional<Medicine> opt = medRepo.findById(medicineId);
 		if (!opt.isPresent()) {
@@ -76,7 +76,7 @@ public class MedicineServiceImpl implements IMedicineService {
 	}
 	// Get a specific category of the given ID
 	@Override
-	public Category viewCategoryById(String categoryId) {
+	public Category viewCategoryById(int categoryId) {
 		logger.info("View category by id");
 		Optional<Category> opt = catRepo.findById(categoryId);
 		if (!opt.isPresent()) {
@@ -86,7 +86,7 @@ public class MedicineServiceImpl implements IMedicineService {
 	}
 	// Used to update the medicine name of given id and object
 	@Override
-	public Medicine updateMedicineName(String medicineId, Medicine medicine) {
+	public Medicine updateMedicineName(int medicineId, Medicine medicine) {
 		logger.info("Update medicine name");
 		Optional<Medicine> opt = medRepo.findById(medicineId);
 		if (!opt.isPresent()) {

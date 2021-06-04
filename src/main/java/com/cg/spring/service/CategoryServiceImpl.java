@@ -23,7 +23,7 @@ public class CategoryServiceImpl implements ICategoryService {
 	IMedicineRepository medRepo;
 	// Get a specific category of the given ID
 	@Override
-	public Category viewCategory(String categoryId) {
+	public Category viewCategory(int categoryId) {
 		logger.info("View category by id");
 		Optional<Category> opt = catRepo.findById(categoryId);
 		if (!opt.isPresent()) {
@@ -45,7 +45,7 @@ public class CategoryServiceImpl implements ICategoryService {
 	}
 	// Used to delete the category
 	@Override
-	public Category deleteCategory(String categoryId) {
+	public Category deleteCategory(int categoryId) {
 		logger.info("Delete category by id");
 		Optional<Category> opt = catRepo.findById(categoryId);
 		if (!opt.isPresent()) {
@@ -69,7 +69,7 @@ public class CategoryServiceImpl implements ICategoryService {
 	}
 	// Get a specific medicine of the given ID
 	@Override
-	public Medicine viewMedicineById(String medicineId) {
+	public Medicine viewMedicineById(int medicineId) {
 		logger.info("View medicine by medicineid");
 		Optional<Medicine> opt = medRepo.findById(medicineId);
 		if (!opt.isPresent()) {

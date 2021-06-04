@@ -11,7 +11,7 @@ import com.cg.spring.model.Medicine;
 public interface ICategoryService {
 
 	// Method to be override by the implementing class
-		public Category viewCategory(String categoryId);
+		public Category viewCategory(int categoryId);
 
 		// Method to be override by the implementing class
 		public List<Category> showAllCategory();
@@ -20,12 +20,12 @@ public interface ICategoryService {
 		public Category addCategory(Category category);
 
 		// Method to be override by the implementing class
-		public Category deleteCategory(String categoryId);
+		public Category deleteCategory(int categoryId);
 
 		// Method to be override by the implementing class
 		public Category updateCategory(Category category);
 
 		// Method to be override by the implementing class
-		public Medicine viewMedicineById(String medicineId);
+		public Medicine viewMedicineById(int medicineId);
 
 }

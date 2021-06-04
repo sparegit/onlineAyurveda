@@ -2,6 +2,7 @@ package com.cg.spring.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -22,7 +23,8 @@ import lombok.ToString;
 public class Category {
 	@Id
 	@NonNull
-	private String categoryId;
+	@GeneratedValue
+	private int categoryId;
 	
 	@Size(min = 3, message = "Minimum character in category name should be 3.")
 	@NonNull

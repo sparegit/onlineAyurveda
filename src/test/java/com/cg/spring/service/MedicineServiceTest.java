@@ -35,7 +35,7 @@ class MedicineServiceTest {
 	@Disabled
 	@Test
 	public void viewMedicine() {
-		Medicine med = medService.viewMedicine("1");
+		Medicine med = medService.viewMedicine(1);
 		logger.info(med);
 		assertEquals("ayurveda", med.getMedicineName());
 	}
@@ -44,7 +44,7 @@ class MedicineServiceTest {
 	@Disabled
 	@Test
 	public void deleteMedicine() {
-		Medicine med = medService.deleteMedicine("2");
+		Medicine med = medService.deleteMedicine(2);
 		logger.info(med);
 		assertEquals("2", med.getMedicineId());
 	}
@@ -53,7 +53,7 @@ class MedicineServiceTest {
 	@Test
 	@Disabled
 	public void addMedicine() {
-		Medicine med = new Medicine("3", "ayurveda", 499f, LocalDate.parse("2020-03-13"),
+		Medicine med = new Medicine(3, "ayurveda", 499f, LocalDate.parse("2020-03-13"),
 				LocalDate.parse("2022-06-22"));
 		Medicine persistedMed = medService.addMedicine(med);
 		logger.info(persistedMed);
@@ -68,9 +68,9 @@ class MedicineServiceTest {
 	@Disabled
 	@Test
 	public void updateMedicine() {
-		Medicine med = new Medicine("6", "Chandana", 600f, LocalDate.parse("2020-03-13"),
+		Medicine med = new Medicine(6, "Chandana", 600f, LocalDate.parse("2020-03-13"),
 				LocalDate.parse("2022-06-22"));
-		med.setMedicineId("6");
+		med.setMedicineId(6);
 		med.setMedicineName("Chandana");
 		med.setMedicineCost(600f);
 		med.setMfd(LocalDate.parse("2020-03-13"));
@@ -85,7 +85,7 @@ class MedicineServiceTest {
 	@Test
 	@Disabled
 	public void viewCategoryById() {
-		Category cat = medService.viewCategoryById("2");
+		Category cat = medService.viewCategoryById(2);
 		logger.info(cat);
 		assertEquals("caugh", cat.getCategoryName());
 	}

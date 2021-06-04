@@ -116,7 +116,7 @@ public class OrderServiceImplementation implements IOrderService {
 	}
 	// Get order list based on the given medicine id.
 	@Override
-	public List<Order> getOrderListBasedOnMedicineId(String medicineid) {
+	public List<Order> getOrderListBasedOnMedicineId(int medicineid) {
 		logger.info("View order list based on medicine id");
 		Optional<Medicine> med = medicineRepo.findById(medicineid);
 		if (!med.isPresent()) {

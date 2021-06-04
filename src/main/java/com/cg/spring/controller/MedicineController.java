@@ -34,7 +34,7 @@ public class MedicineController {
 
 	// This controller is used to get a specific medicine on basis of ID
 	@GetMapping("/id/{id}")
-	public ResponseEntity<Medicine> viewMedicine(@PathVariable("id") String medicineId) {
+	public ResponseEntity<Medicine> viewMedicine(@PathVariable("id") int medicineId) {
 		logger.info("View medicine by id");
 		Medicine med = medService.viewMedicine(medicineId);
 		if (med == null) {
@@ -66,7 +66,7 @@ public class MedicineController {
 		// and request the service to perform the action and returns the message as
 		// deleted else throw exception
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Medicine> deleteMedicine(@PathVariable("id") String medicineId) {
+	public ResponseEntity<Medicine> deleteMedicine(@PathVariable("id") int medicineId) {
 		logger.info("Delete medicine by id");
 		Medicine med = medService.deleteMedicine(medicineId);
 		if (med == null) {
@@ -90,7 +90,7 @@ public class MedicineController {
 
 	// This controller is used to get a specific category on basis of CategoryID
 	@GetMapping("/{id}")
-	public ResponseEntity<Category> viewCategoryById(@PathVariable("id") String categoryId) {
+	public ResponseEntity<Category> viewCategoryById(@PathVariable("id") int categoryId) {
 		logger.info("View category by id");
 		Category cat = medService.viewCategoryById(categoryId);
 		if (cat == null) {
@@ -102,7 +102,7 @@ public class MedicineController {
 	// This function is used to update a specific medicine on basis of given
 		// medicine name and returns exception if given medicine id is not found.
 	@PatchMapping("/{id}")
-	public ResponseEntity<Medicine> updateMedicineName(@PathVariable("id") String medicineId,
+	public ResponseEntity<Medicine> updateMedicineName(@PathVariable("id") int medicineId,
 		@Valid	@RequestBody Medicine medicine) {
 		logger.info("Update medicine by id");
 		Medicine med = medService.updateMedicineName(medicineId, medicine);
