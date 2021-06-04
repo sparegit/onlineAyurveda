@@ -5,7 +5,9 @@ import com.cg.spring.model.Customer;
 import com.cg.spring.model.CustomerLogin;
 
 public interface ICustomerLoginService {
-public Customer login(CustomerLogin user);
+	// Method to be override by the implementing class
+	public Customer login(CustomerLogin user);
 
-public	String logout(String userId);
+	// Method to be override by the implementing class
+	public String logout(String userId);
 }

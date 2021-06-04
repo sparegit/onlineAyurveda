@@ -70,7 +70,7 @@ class CategoryServiceTest {
 		logger.info(updatecat);
 		assertEquals("cold", updatecat.getCategoryName());
 	}
-
+	// Testing whether the given id fetches the given medicine or not.
 	@Test
 	@Disabled
 	public void viewMedicineById() {

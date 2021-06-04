@@ -23,7 +23,7 @@ import com.cg.spring.service.ICartService;
 public class CartController {
 	
 	org.apache.logging.log4j.Logger logger = LogManager.getLogger(CartController.class);
-	
+	// We are autowiring the cart service layer to this controller layer of cart
 	@Autowired
 	ICartService cartService;
 

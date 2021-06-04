@@ -16,7 +16,7 @@ public class PaymentServiceImplementation implements IPaymentService {
 	
 	@Autowired
 	IPaymentRepository paymentRepository;
-
+	// Get a specific payment of the given ID
 	@Override
 	public Payment findById(int pId) {
 		logger.info("View payment by id");
@@ -26,7 +26,7 @@ public class PaymentServiceImplementation implements IPaymentService {
 		}
 		return opt.get();
 	}
-
+	// Used to store the given payment passed from the controller
 	@Override
 	public Payment save(Payment pay) {
 		logger.info("Adding payment");

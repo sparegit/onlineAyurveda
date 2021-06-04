@@ -17,19 +17,21 @@ public class AddressServiceImpl implements IAddressService {
 
 	@Autowired
 	IAddressRepository addrRepo;
-
+	// To store the address
 	@Override
 	public Address save(Address address) {
 		logger.info("Adding address to the database");
 		return addrRepo.save(address);
 	}
-
+	// To List all the address called from the controller class and send back to the
+		// Controller
 	@Override
 	public List<Address> findAllAddresses() {
 		logger.info("View all addresses");
 		return addrRepo.findAll();
 	}
-
+	// Get and retrieve a specific Address based on the given id else throws
+		// AddressNotFound Exception
 	@Override
 	public Address findAddressById(long addressid) {
 		logger.info("View address by id");
@@ -39,7 +41,7 @@ public class AddressServiceImpl implements IAddressService {
 		}
 		return addr.get();
 	}
-
+	// To update the adddress based on the given object
 	@Override
 	public Address update(Address address) {
 		logger.info("Update address in the database");
@@ -55,7 +57,7 @@ public class AddressServiceImpl implements IAddressService {
 
 		return addrRepo.save(addr.get());
 	}
-
+	// To update the adddress based on the given id
 	@Override
 	public Address deleteAddressById(long addressid) {
 		logger.info("Deleting address by id");

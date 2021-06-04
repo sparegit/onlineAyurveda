@@ -7,19 +7,27 @@ import com.cg.spring.model.Order;
 
 public interface ICustomerService {
 
-	public Customer addCustomer(Customer customer);
+	// Method to be override by the implementing class
+		public Customer addCustomer(Customer customer);
 
-	public Customer updateCustomer(Customer customer);
+		// Method to be override by the implementing class
+		public Customer updateCustomer(Customer customer);
 
-	public Customer updateCustomerName(Customer customer);
+		// Method to be override by the implementing class
+		public Customer updateCustomerName(Customer customer);
 
-	public Customer viewCustomerById(int customerid);
+		// Method to be override by the implementing class
+		public Customer viewCustomerById(int customerid);
 
-	public List<Customer> showAllCustomers();
+		// Method to be override by the implementing class
+		public List<Customer> showAllCustomers();
 
-	public Customer deleteCustomer(int customerid);
+		// Method to be override by the implementing class
+		public Customer deleteCustomer(int customerid);
 
-	public List<Order> showAllOrders();
-	
-	public Customer findCustomerByEmailId(String email);
+		// Method to be override by the implementing class
+		public List<Order> showAllOrders();
+
+		// Method to be override by the implementing class
+		public Customer findCustomerByEmail(String email);
 }

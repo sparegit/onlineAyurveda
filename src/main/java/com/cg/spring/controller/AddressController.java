@@ -2,6 +2,8 @@ package com.cg.spring.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,40 +23,47 @@ import com.cg.spring.service.IAddressService;
 public class AddressController {
 	
 	org.apache.logging.log4j.Logger logger = LogManager.getLogger(AddressController.class);
-	
+
+	// We are autowiring the medicine service layer to this controller layer of
+	// medicine
 	@Autowired
 	IAddressService addrService;
 	
-
-	// Add
+	// This below function is used to create a new address and redirects to the
+	// address service
 	@PostMapping("/address")
-	public ResponseEntity <Address> save(@RequestBody Address address) {
+	public ResponseEntity <Address> save(@Valid @RequestBody Address address) {
 		logger.info("Adding address in database");
 		return new ResponseEntity<> (addrService.save(address),HttpStatus.OK);
 	}
 
-	// ShowAll
+	// This below function is used to get all the address and redirects to the
+	// address service
 	@GetMapping("/address")
 	public ResponseEntity<List<Address>> findAllAddresses() {
 		logger.info("View all address from database");
 		return new ResponseEntity<>(addrService.findAllAddresses(),HttpStatus.OK);
 	}
 
-	// Find address by id
+	// This below function is used to get a specific address and id as parameter and
+	// redirects to the address service
 	@GetMapping("/address/{id}")
 	public ResponseEntity<Address> findAddressById(@PathVariable("id") long addressid) {
 		logger.info("View address by id");
 		return new ResponseEntity<> (addrService.findAddressById(addressid),HttpStatus.OK);
 	}
 
-	// Update
+	// This below function is used to update a specific address based on the give Id
+	// and redirects to the address service
 	@PutMapping("/address")
-	public ResponseEntity<Address> update(@RequestBody Address address) {
+	public ResponseEntity<Address> update(@Valid @RequestBody Address address) {
 		logger.info("Updating address details in database");
 		return new ResponseEntity<>(addrService.update(address),HttpStatus.OK);
 	}
 
-	// Delete
+
+	// This below function is used to delete a specific address based on the give Id
+	// and redirects to the address service
 	@DeleteMapping("/address/{id}")
 	public ResponseEntity<Address> deleteAddressById(@PathVariable("id") long addressid) {
 		logger.info("Delete address by id");

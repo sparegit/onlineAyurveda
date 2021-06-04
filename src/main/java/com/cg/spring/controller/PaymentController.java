@@ -1,5 +1,7 @@
 package com.cg.spring.controller;
 
+import javax.validation.Valid;
+
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,14 +23,15 @@ import com.cg.spring.service.IPaymentService;
 public class PaymentController {
 	
 	org.apache.logging.log4j.Logger logger = LogManager.getLogger(PaymentController.class);
-	
+	// We are autowiring the payment service layer to this controller layer of
+		// payment
 	@Autowired
 	IPaymentService paymentService;
 	@Autowired
 	IOrderService orderService;
 	@Autowired
 	IPaymentRepository paymentRepository;
-
+	// This controller is used to get a specific payment on basis of ID
 	@GetMapping("/order/payment/{id}")
 	public ResponseEntity<Payment> findPaymentBypId(@PathVariable("id") int pId) {
 		logger.info("View payment by id");
@@ -39,9 +42,10 @@ public class PaymentController {
 		return new ResponseEntity<>(paymentService.findById(pId), HttpStatus.OK);
 
 	}
-
+	// This controller is used to create a new or add new payment and redirects it
+		// to the service layer
 	@PostMapping("/orders/payment/placeorder")
-	public ResponseEntity<Payment> placeOrder(@RequestBody OrderRequest req) {
+	public ResponseEntity<Payment> placeOrder(@Valid @RequestBody OrderRequest req) {
 		logger.info("Place order");
 		return new ResponseEntity<>(paymentService.save(req.getPayment()), HttpStatus.OK);
 	}

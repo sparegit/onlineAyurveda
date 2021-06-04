@@ -22,7 +22,7 @@ class CustomerServiceTest {
 	@Autowired
 	ICustomerService custService;
 
-	// Add
+	// Testing whether the customer gets added to the database.
 	@Test
 	@Disabled
 	void testaddCustomer() {
@@ -33,11 +33,11 @@ class CustomerServiceTest {
 		assertEquals("Akshay", persistedCust.getCustomerName());
 		assertEquals("ak780.$", persistedCust.getCustomerPassword());
 		assertEquals(9320411200L, persistedCust.getMobileNumber());
-		assertEquals("ak07ay@gmail.com", persistedCust.getEmailId());
+		assertEquals("ak07ay@gmail.com", persistedCust.getEmail());
 		//assertEquals(null, persistedCust.getCart());
 	}
 
-	// Update
+	// Testing whether the customer gets updated to the database.
 	@Test
 	@Disabled
 	void testupdateCustomer() {
@@ -45,7 +45,7 @@ class CustomerServiceTest {
 		customer.setCustomerId(7);
 		customer.setCustomerName("Sahana");
 		customer.setCustomerPassword("sahana*001");
-		customer.setEmailId("sahana22@yahoo.com");
+		customer.setEmail("sahana22@yahoo.com");
 		customer.setMobileNumber(9655241002L);
 
 		Customer uptdcust = custService.updateCustomer(customer);
@@ -53,7 +53,7 @@ class CustomerServiceTest {
 		assertEquals("Sahana", uptdcust.getCustomerName());
 	}
 
-	// ViewById
+	// Testing whether the given id fetches the given customer or not.
 	@Test
 	@Disabled
 	void testviewCustomerById() {
@@ -64,7 +64,7 @@ class CustomerServiceTest {
 		assertEquals("aaru0202", customer.getCustomerPassword());
 	}
 
-	// ViewAll
+	// Testing whether the customer database has customer or null.
 	@Test
 	@Disabled
 	void testshowallCustomers() {
@@ -73,7 +73,7 @@ class CustomerServiceTest {
 		assertEquals(4, customers.size());
 	}
 
-	// Delete
+	// Testing whether the customer gets removed from the database
 	@Test
 	@Disabled
 	void testdeleteCustomer() {
@@ -84,6 +84,6 @@ class CustomerServiceTest {
 		assertEquals("Akhil", persistCust.getCustomerName());
 		assertEquals("akhi8679", persistCust.getCustomerPassword());
 		assertEquals(9522045112L, persistCust.getMobileNumber());
-		assertEquals("akhil86@gmail.com", persistCust.getEmailId());
+		assertEquals("akhil86@gmail.com", persistCust.getEmail());
 	}
 }

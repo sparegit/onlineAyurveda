@@ -22,7 +22,7 @@ class MedicineServiceTest {
 	@Autowired
 	IMedicineService medService;
 
-	// find all medicine
+	// Testing whether the medicine database has medicine or null.
 	@Test
 	@Disabled
 	public void testshowAllMedicine() {
@@ -31,7 +31,7 @@ class MedicineServiceTest {
 		assertEquals(4, medicines.size());
 	}
 
-	// findMedicineById
+	// Testing whether the given id fetches the given medicine or not.
 	@Disabled
 	@Test
 	public void viewMedicine() {
@@ -40,7 +40,7 @@ class MedicineServiceTest {
 		assertEquals("ayurveda", med.getMedicineName());
 	}
 
-	// DeleteMedicineById
+	// Testing whether the medicine gets removed from the database.
 	@Disabled
 	@Test
 	public void deleteMedicine() {
@@ -49,7 +49,7 @@ class MedicineServiceTest {
 		assertEquals("2", med.getMedicineId());
 	}
 
-	// Add Medicine
+	// Testing whether the medicine gets added to the database.
 	@Test
 	@Disabled
 	public void addMedicine() {
@@ -64,7 +64,7 @@ class MedicineServiceTest {
 		assertEquals(LocalDate.parse("2022-06-22"), persistedMed.getExpiryDate());
 	}
 
-	// Update Medicine
+	// Testing whether the medicine gets updated to the database.
 	@Disabled
 	@Test
 	public void updateMedicine() {
@@ -81,7 +81,7 @@ class MedicineServiceTest {
 		assertEquals("Chandana", updatemed.getMedicineName());
 
 	}
-
+	// Testing whether the given id fetches the given category or not.
 	@Test
 	@Disabled
 	public void viewCategoryById() {

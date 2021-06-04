@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,16 +31,12 @@ public class Cart {
 	@GeneratedValue
 	private long cartId;
 	@NonNull
-	private int customerId;
-	@NonNull
-	private String medId;
-	@NonNull
-	private String medicineName;
-	@NonNull
-	private int quantity;
-	@NonNull
+	@NotBlank
 	private double price;
 	@NonNull
+	private int quantity=1;
+	@NonNull
+	@NotBlank
 	private double totalAmount;
 	
 	//One to One Mapping

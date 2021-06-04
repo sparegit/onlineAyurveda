@@ -1,5 +1,8 @@
 package com.cg.spring.controller;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,13 +30,14 @@ public class CustomerLoginController {
 	@Autowired
 	ICustomerLoginService loginService;
 	@PostMapping("/customer/login")
-	public ResponseEntity<Customer>  Login(@RequestBody CustomerLogin loginentity) {
+	//login service
+	public ResponseEntity<Customer>  Login(@Valid @RequestBody CustomerLogin loginentity) {
 		logger.info("Login by the customer");
 		Customer cust=null;
 		if (loginentity.getEmail()==null || loginentity.getPassword()==null || loginentity.getEmail().equals("")||loginentity.getPassword().equals("")) {
 			throw new CustomerNotFoundException("Userid or Password is invalid");
 		}	
-		Customer userfield = custService.findCustomerByEmailId(loginentity.getEmail());
+		Customer userfield = custService.findCustomerByEmail(loginentity.getEmail());
 		if(userfield !=null && userfield.getCustomerPassword().equals(loginentity.getPassword())) {
 			cust = loginService.login(loginentity);
 		}
@@ -47,7 +51,7 @@ public class CustomerLoginController {
 	}
 	 //logout service
 		@GetMapping("customer/logout/{emailId}")
-		public String Logout( @PathVariable("emailId")String emailId){
+		public String Logout(@Email @PathVariable("emailId")String emailId){
 			logger.info("Logout by the customer");
 			return loginService.logout(emailId);
 		}

@@ -21,7 +21,7 @@ class PaymentServiceTest {
 	
 	@Autowired
 	IPaymentService iservice;
-	
+	// Testing whether the payment gets added to the database.
 	@Test
 	//@Disabled
 	public void testsavePaymentDetails() {
@@ -35,7 +35,7 @@ class PaymentServiceTest {
 		assertEquals(30.00, payupdate.getShippingFee());
 		assertEquals(130.00, payupdate.getTotalPrice());
 	}
-	
+	// Testing whether the given id fetches the given payment or not.
 	@Test
 	//@Disabled
 	public void testfindPaymentById() {

@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -27,15 +28,21 @@ public class Customer {
 	@GeneratedValue
 	private int customerId;
 	@NonNull
+	@NotEmpty
+	@Size(min = 3 ,message = "Minimum characters in name must be 3")
 	private String customerName;
 	@NonNull
-	@Size(min=8,message="Minimum characters in password")
+	@Size(min=8, max = 15, message="Minimum characters in password")
 	@NotEmpty
 	private String customerPassword;
 	@NonNull
+	@NotEmpty 
+	@Size(min=10,max = 10,message = "Mobilenumber must have 10 digits")
 	private Long mobileNumber;
 	@NonNull
-	private String emailId;
+	@NotEmpty
+	@Email
+	private String email;
 	
 	
 

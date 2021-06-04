@@ -2,6 +2,8 @@ package com.cg.spring.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,21 +30,30 @@ import com.cg.spring.service.ICustomerService;
 public class CustomerController {
 	
 	org.apache.logging.log4j.Logger logger = LogManager.getLogger(CustomerController.class);
-
+	// We are autowiring the customer service layer to this controller layer of
+		// customer
 	@Autowired
 	ICustomerService custService;
 	
-	// Add
+	// This controller is used to create a new or add new customer and redirects it
+	// to the service layer
 	@PostMapping("/customer")
-	public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
+	public ResponseEntity<Customer> addCustomer(@Valid @RequestBody Customer customer) {
 		logger.info("Adding customer in database");
-		custService.addCustomer(customer);
-		return new ResponseEntity<>(customer, HttpStatus.OK);
+		Customer cust=custService.findCustomerByEmail(customer.getEmail());
+		if(cust == null) {
+			custService.addCustomer(customer);
+			return new ResponseEntity<>(customer, HttpStatus.OK);
+		}else {
+			cust=null;
+		}
+		return  new ResponseEntity<>(cust, HttpStatus.ALREADY_REPORTED);
 	}
 
-	// Update
+	// This controller is used to update a new or add new customer and redirects it
+		// to the service layer
 	@PutMapping("/customer/{id}")
-	public ResponseEntity<Customer> updateCustomer(@PathVariable("id") int id, @RequestBody Customer customer) {
+	public ResponseEntity<Customer> updateCustomer(@PathVariable("id") int id,@Valid @RequestBody Customer customer) {
 		logger.info("Updating customer details in database");
 		Customer cust = custService.updateCustomer(customer);
 		if (cust == null) {
@@ -51,15 +62,16 @@ public class CustomerController {
 		return new ResponseEntity<>(cust, HttpStatus.OK);
 	}
 
-	// UpdateName
+	// This function is used to update a specific customer on basis of given
+		// customer name
 	@PatchMapping("/customer/{name}")
 	public ResponseEntity<Customer> updateCustomerName(@PathVariable("name") String customerName,
-			@RequestBody Customer customer) {
+		@Valid	@RequestBody Customer customer) {
 		logger.info("Updating customer name in database");
 		return new ResponseEntity<>(custService.updateCustomerName(customer), HttpStatus.OK);
 	}
 
-	// ViewbyId
+	// This controller is used to get a specific customer on basis of ID
 	@GetMapping("/customer/{id}")
 	public ResponseEntity<Customer> viewCustomerById(@PathVariable("id") int customerId) {
 		logger.info("View customer by Id");
@@ -70,14 +82,17 @@ public class CustomerController {
 		return new ResponseEntity<>(cust, HttpStatus.OK);
 	}
 
-	// ViewAll
+	// This controller is used to return and list all the customers found in the
+	// database and request to the service to perform the action
 	@GetMapping("/customer")
 	public ResponseEntity<List<Customer>> showAllCustomers() {
 		logger.info("View all customers");
 		return new ResponseEntity<>(custService.showAllCustomers(), HttpStatus.OK);
 	}
 
-	// Delete
+	// this controller function perform deletion of a specific given customer
+	// and request the service to perform the action and returns the message as
+	// deleted else throw exception
 	@DeleteMapping("/customer/{id}")
 	public ResponseEntity<Customer> deleteCustomer(@PathVariable("id") int customerId) {
 		logger.info("Delete customer by id");

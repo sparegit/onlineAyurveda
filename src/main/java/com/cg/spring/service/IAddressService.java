@@ -6,13 +6,18 @@ import com.cg.spring.model.Address;
 
 public interface IAddressService {
 
-	Address findAddressById(long addressid);
+	// Method to be override by the implementing class
+		Address findAddressById(long addressid);
 
-	List<Address> findAllAddresses();
+		// Method to be override by the implementing class
+		List<Address> findAllAddresses();
 
-	Address save(Address address);
+		// Method to be override by the implementing class
+		Address save(Address address);
 
-	Address update(Address address);
+		// Method to be override by the implementing class
+		Address update(Address address);
 
-	Address deleteAddressById(long addressid);
+		// Method to be override by the implementing class
+		Address deleteAddressById(long addressid);
 }

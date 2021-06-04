@@ -20,7 +20,7 @@ public class CustomerLoginServiceImplementation implements ICustomerLoginService
 	ICustomerLoginRepository loginRepo;
 	@Autowired
 	ICustomerRepository registerRepo;
-
+	
 	@Override
 	public Customer login(CustomerLogin user) {
 		logger.info("Customer login");
@@ -29,7 +29,7 @@ public class CustomerLoginServiceImplementation implements ICustomerLoginService
 		if ( !dbUsr.isPresent() || !dbUsr.get().isLoggedIn()) {
 			user.setLoggedIn(true);
 			loginRepo.save(user);
-			cust=registerRepo.findCustomerByEmailId(user.getEmail());
+			cust=registerRepo.findCustomerByEmail(user.getEmail());
 			return cust;
 		} 
 

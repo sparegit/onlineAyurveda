@@ -14,5 +14,5 @@ import com.cg.spring.model.Customer;
 @Repository
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
 	
-	Customer findCustomerByEmailId(String email);
+	Customer findCustomerByEmail(String email);
 }

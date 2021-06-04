@@ -47,7 +47,7 @@ public class CustomerServiceMockitoTest {
 		assertEquals(10, persistedCust.getCustomerId());
 		assertEquals("Bharath", persistedCust.getCustomerName());
 		assertEquals("br230899*", persistedCust.getCustomerPassword());
-		assertEquals("bharath88@gmail.com", persistedCust.getEmailId());
+		assertEquals("bharath88@gmail.com", persistedCust.getEmail());
 		assertEquals(9200145220L, persistedCust.getMobileNumber());
 	}
 
@@ -82,7 +82,7 @@ public class CustomerServiceMockitoTest {
 		assertEquals(12, persistedCust.getCustomerId());
 		assertEquals("Sara", persistedCust.getCustomerName());
 		assertEquals("sara433*", persistedCust.getCustomerPassword());
-		assertEquals("sara123@gmail.com", persistedCust.getEmailId());
+		assertEquals("sara123@gmail.com", persistedCust.getEmail());
 		assertEquals(9665210222L, persistedCust.getMobileNumber());
 	}
 
@@ -98,7 +98,7 @@ public class CustomerServiceMockitoTest {
 		assertEquals("Siri", persistedCust.getCustomerName());
 		assertEquals("siri4*", persistedCust.getCustomerPassword());
 		assertEquals(8033278551L, persistedCust.getMobileNumber());
-		assertEquals("siriap8@yahoo.com", persistedCust.getEmailId());
+		assertEquals("siriap8@yahoo.com", persistedCust.getEmail());
 	}
 
 	// Delete
@@ -114,7 +114,7 @@ public class CustomerServiceMockitoTest {
 		assertEquals("Shilpa", persistedCust.getCustomerName());
 		assertEquals("shilpa454+", persistedCust.getCustomerPassword());
 		assertEquals(8655296220L, persistedCust.getMobileNumber());
-		assertEquals("shipaa33@yahoo.com", persistedCust.getEmailId());
+		assertEquals("shipaa33@yahoo.com", persistedCust.getEmail());
 
 	}
 }

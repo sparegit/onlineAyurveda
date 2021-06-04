@@ -32,7 +32,7 @@ public class OrderServiceImplementation implements IOrderService {
 	ICustomerService customerService;
 	@Autowired
 	ICustomerRepository customerRepo;
-
+	// Get a specific order based on the given id.
 	@Override
 	public Order findById(int order) {
 		logger.info("View order by id");
@@ -42,19 +42,19 @@ public class OrderServiceImplementation implements IOrderService {
 		}
 		return opt.get();
 	}
-
+	// used to add or place the order
 	@Override
 	public Order save(Order order) {
 		logger.info("Add order to the database");
 		return orderRepository.save(order);
 	}
-
+	// Used to list all the orders from the database
 	@Override
 	public List<Order> findAll() {
 		logger.info("View all orders");
 		return orderRepository.findAll();
 	}
-
+	// Used to update the order of given object
 	@Override
 	public Order update(Order order) {
 		logger.info("Update order details in database");
@@ -67,7 +67,7 @@ public class OrderServiceImplementation implements IOrderService {
 		ord.setTotalCost(order.getTotalCost());
 		return orderRepository.save(ord);
 	}
-
+	// Used to cancel the order
 	@Override
 	public Order cancelOrder(int id) {
 		logger.info("Cancel order by id");
@@ -80,7 +80,7 @@ public class OrderServiceImplementation implements IOrderService {
 		return ord;
 
 	}
-
+	// Used to calculate the total cost
 	@Override
 	public double calculateTotalCost(int orderId) {
 		logger.info("Calculating cost of order by id");
@@ -92,7 +92,7 @@ public class OrderServiceImplementation implements IOrderService {
 		double total = ord.getTotalCost();
 		return total;
 	}
-
+	// Used to list all the orders from the database
 	@Override
 	public List<Order> findAllOrderByOrderDate(String orderDate) {
 		logger.info("View all orders by date");
@@ -103,7 +103,7 @@ public class OrderServiceImplementation implements IOrderService {
 		List<Order> ord = opt.get();
 		return orderRepository.findAllOrderByOrderDate(orderDate);
 	}
-
+	// Used to update the order by using id and object
 	@Override
 	public Order updateOrderStatusByUserId(int id, Order order) {
 		logger.info("View order status by id");
@@ -114,7 +114,7 @@ public class OrderServiceImplementation implements IOrderService {
 		ord.get().setStatus(order.getStatus());
 		return orderRepository.save(ord.get());
 	}
-
+	// Get order list based on the given medicine id.
 	@Override
 	public List<Order> getOrderListBasedOnMedicineId(String medicineid) {
 		logger.info("View order list based on medicine id");
@@ -134,7 +134,7 @@ public class OrderServiceImplementation implements IOrderService {
 		}
 		return ordersWithMedId;
 	}
-
+	// Get order list based on the given customer object
 	@Override
 	public List<Order> getOrderListBasedOnCustomer(Customer customer) {
 		logger.info("Get order list based on customer");

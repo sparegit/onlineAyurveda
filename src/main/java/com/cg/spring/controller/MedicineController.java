@@ -28,11 +28,11 @@ import com.cg.spring.service.IMedicineService;
 public class MedicineController {
 	
 	org.apache.logging.log4j.Logger logger = LogManager.getLogger(MedicineController.class);
-
+	// We are autowiring the medicine service layer to this controller layer of medicine
 	@Autowired
 	IMedicineService medService;
 
-	// READ
+	// This controller is used to get a specific medicine on basis of ID
 	@GetMapping("/id/{id}")
 	public ResponseEntity<Medicine> viewMedicine(@PathVariable("id") String medicineId) {
 		logger.info("View medicine by id");
@@ -43,21 +43,18 @@ public class MedicineController {
 		return new ResponseEntity<>(med, HttpStatus.OK);
 	}
 
-	// showAll
+	// This controller is used to return and list all the medicine found in the
+	// database and request to the service to perform the action
 	@GetMapping("")
 	public ResponseEntity<List<Medicine>> showAllMedicine() {
 		logger.info("View all medicines from database");
 		return new ResponseEntity<>(medService.showAllMedicine(), HttpStatus.OK);
 	}
 
-	// find all order
-	@GetMapping("/order")
-	public ResponseEntity<List<Order>> getOrderList() {
-		logger.info("Get all Orders");
-		return new ResponseEntity<>(medService.getOrderList(), HttpStatus.OK);
-	}
+	
 
-	// WRITE
+	// This controller is used to create a new or add new medicine and redirects it
+		// to the service layer
 	@PostMapping("")
 	public ResponseEntity<Medicine> addMedicine(@Valid @RequestBody Medicine medicine) {
 		logger.info("View medicine by id");
@@ -65,7 +62,9 @@ public class MedicineController {
 		return new ResponseEntity<>(med, HttpStatus.CREATED);
 	}
 
-	// DELETE
+	// this controller function perform deletion of a specific given medicine
+		// and request the service to perform the action and returns the message as
+		// deleted else throw exception
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Medicine> deleteMedicine(@PathVariable("id") String medicineId) {
 		logger.info("Delete medicine by id");
@@ -76,10 +75,11 @@ public class MedicineController {
 		return new ResponseEntity<>(med, HttpStatus.OK);
 	}
 
-	// UPDATE
+	// This function is used to update a specific medicine on basis of given
+		// medicine id and returns exception if given medicine id is not found.
 	@PutMapping("/{id}")
 	public ResponseEntity<Medicine> updateMedicine(@PathVariable("id") String medicineId,
-			@RequestBody Medicine medicine) {
+		@Valid	@RequestBody Medicine medicine) {
 		logger.info("Update medicine by id");
 		Medicine med = medService.updateMedicine(medicine);
 		if (med == null) {
@@ -88,7 +88,7 @@ public class MedicineController {
 		return new ResponseEntity<>(med, HttpStatus.OK);
 	}
 
-	// find Category By Id
+	// This controller is used to get a specific category on basis of CategoryID
 	@GetMapping("/{id}")
 	public ResponseEntity<Category> viewCategoryById(@PathVariable("id") String categoryId) {
 		logger.info("View category by id");
@@ -99,11 +99,11 @@ public class MedicineController {
 		return new ResponseEntity<>(cat, HttpStatus.OK);
 	}
 
-	// UPDATE
-	// Updating specific property
+	// This function is used to update a specific medicine on basis of given
+		// medicine name and returns exception if given medicine id is not found.
 	@PatchMapping("/{id}")
 	public ResponseEntity<Medicine> updateMedicineName(@PathVariable("id") String medicineId,
-			@RequestBody Medicine medicine) {
+		@Valid	@RequestBody Medicine medicine) {
 		logger.info("Update medicine by id");
 		Medicine med = medService.updateMedicineName(medicineId, medicine);
 		if (med == null) {

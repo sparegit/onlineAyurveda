@@ -37,7 +37,8 @@ public class Medicine {
 	@NonNull
 	@Size(min = 3, message = "Minimum charecters in medicine name should be 3.")
 	@NotEmpty
-	@Column(name = "medicine_name", nullable = false)
+	@Column(unique = true, name = "medicine_name", nullable = false)
+	
 	private String medicineName;
 	
 	@NonNull

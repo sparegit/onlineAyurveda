@@ -26,7 +26,7 @@ public class CartServiceImpl implements ICartService {
 
 	@Autowired
 	ICustomerRepository custRepo;
-
+	// Used to Store the cart passed as parameter from the Controller function
 	@Override
 	public Cart addItemToCart(Medicine medicine) {
 		logger.info("Adding medicines to the cart");

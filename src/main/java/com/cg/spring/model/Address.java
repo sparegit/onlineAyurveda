@@ -5,7 +5,7 @@ package com.cg.spring.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
+import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 import lombok.NonNull;
@@ -24,8 +24,10 @@ public class Address {
 	@NonNull
 	String doorNo;
 	@NonNull
+	@NotBlank
 	String streetName;
 	@NonNull
+	@NotBlank
 	String city;
 
 	// Constructors

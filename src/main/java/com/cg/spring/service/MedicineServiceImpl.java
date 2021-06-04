@@ -25,7 +25,7 @@ public class MedicineServiceImpl implements IMedicineService {
 	ICategoryRepository catRepo;
 	@Autowired
 	IOrderRepository orderRepo;
-
+	// Get a specific medicine of the given ID
 	@Override
 	public Medicine viewMedicine(String medicineId) {
 		logger.info("View medicine by id");
@@ -35,19 +35,19 @@ public class MedicineServiceImpl implements IMedicineService {
 		}
 		return opt.get();
 	}
-
+	// Used to list all the medicine from the database
 	@Override
 	public List<Medicine> showAllMedicine() {
 		logger.info("View all medicines in database");
 		return medRepo.findAll();
 	}
-
+	// Used to store the given medicine Object passed from the controller
 	@Override
 	public Medicine addMedicine(Medicine medicine) {
 		logger.info("Add medicine to database");
 		return medRepo.save(medicine);
 	}
-
+	// Used to delete the medicine
 	@Override
 	public Medicine deleteMedicine(String medicineId) {
 		logger.info("Delete medicine by id");
@@ -59,7 +59,7 @@ public class MedicineServiceImpl implements IMedicineService {
 		medRepo.deleteById(medicineId);
 		return med;
 	}
-
+	// Used to update the medicine of given object
 	@Override
 	public Medicine updateMedicine(Medicine medicine) {
 		logger.info("Update medicines details in database");
@@ -74,7 +74,7 @@ public class MedicineServiceImpl implements IMedicineService {
 		med.setExpiryDate(medicine.getExpiryDate());
 		return medRepo.save(med);
 	}
-
+	// Get a specific category of the given ID
 	@Override
 	public Category viewCategoryById(String categoryId) {
 		logger.info("View category by id");
@@ -84,7 +84,7 @@ public class MedicineServiceImpl implements IMedicineService {
 		}
 		return opt.get();
 	}
-
+	// Used to update the medicine name of given id and object
 	@Override
 	public Medicine updateMedicineName(String medicineId, Medicine medicine) {
 		logger.info("Update medicine name");
@@ -97,13 +97,13 @@ public class MedicineServiceImpl implements IMedicineService {
 
 		return medRepo.save(med);
 	}
-
+	// Used to get medicine by given name
 	@Override
 	public Medicine findByMedicineName(String medicineName) {
 		logger.info("View medicine by name");
 		return medRepo.findByMedicineName(medicineName);
 	}
-
+	// Used to list all the orders from the database
 	@Override
 	public List<Order> getOrderList() {
 		logger.info("Get order list");

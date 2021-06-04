@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -23,9 +24,9 @@ public class Category {
 	@NonNull
 	private String categoryId;
 	
-	@Size(min = 3, message = "Minimum charecters in category name should be 3.")
-	@NotEmpty
+	@Size(min = 3, message = "Minimum character in category name should be 3.")
 	@NonNull
+	@NotBlank
 	private String categoryName;
 
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "category")

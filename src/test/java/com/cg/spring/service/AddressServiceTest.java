@@ -23,6 +23,7 @@ class AddressServiceTest {
 	// Add
 	@Test
 	@Disabled
+	//Testing whether the Address gets added to the database.
 	void testSaveAddress() {
 		Address address = new Address(115L, "660", "rathnam street", "trichy");
 		Address persistedAddr = addrService.save(address);
@@ -33,7 +34,7 @@ class AddressServiceTest {
 		assertEquals("trichy", persistedAddr.getCity());
 	}
 
-	// ViewAll
+	//Testing whether the address database has address or null.
 	@Test
 	@Disabled
 	void testViewAddress() {
@@ -42,7 +43,7 @@ class AddressServiceTest {
 		assertEquals(3, addr.size());
 	}
 
-	// ViewById
+	//Testing whether the given id fetches the given address or not.
 	@Test
 	@Disabled
 	void testViewAddressById() {
@@ -51,7 +52,7 @@ class AddressServiceTest {
 		assertEquals("LBS", addr.getStreetName());
 	}
 
-	// Update
+	//Testing whether the address gets updated to the database.
 	@Test
 	@Disabled
 	void testupdateAddress() {
@@ -65,7 +66,7 @@ class AddressServiceTest {
 		assertEquals("bengaluru", addr.getCity());
 	}
 
-	// Delete
+	//Testing whether the address gets removed from the database.
 	@Test
 	@Disabled
 	void testDeleteAddressById() {

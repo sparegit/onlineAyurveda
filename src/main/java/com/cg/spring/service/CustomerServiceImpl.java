@@ -21,13 +21,13 @@ public class CustomerServiceImpl implements ICustomerService {
 	ICustomerRepository custRepo;
 	@Autowired
 	IOrderRepository orderRepo;
-
+	// Used to store the given customer Object passed from the controller
 	@Override
 	public Customer addCustomer(Customer customer) {
 		logger.info("Adding customer to the database");
 		return custRepo.save(customer);
 	}
-
+	// Used to update the customer of given object
 	@Override
 	public Customer updateCustomer(Customer customer) {
 		logger.info("Update customer details to the database");
@@ -38,11 +38,11 @@ public class CustomerServiceImpl implements ICustomerService {
 		Customer cust = opt.get();
 		cust.setCustomerName(customer.getCustomerName());
 		cust.setCustomerPassword(customer.getCustomerPassword());
-		cust.setEmailId(customer.getEmailId());
+		cust.setEmail(customer.getEmail());
 		cust.setMobileNumber(customer.getMobileNumber());
 		return custRepo.save(cust);
 	}
-
+	// Used to update the customer name of given object
 	@Override
 	public Customer updateCustomerName(Customer customer) {
 		logger.info("Updating customer name");
@@ -54,7 +54,7 @@ public class CustomerServiceImpl implements ICustomerService {
 		cust.setCustomerName(customer.getCustomerName());
 		return custRepo.save(cust);
 	}
-
+	// Get a specific customer of the given ID
 	@Override
 	public Customer viewCustomerById(int customerid) {
 		logger.info("View customer by id");
@@ -64,13 +64,13 @@ public class CustomerServiceImpl implements ICustomerService {
 		}
 		return opt.get();
 	}
-
+	// Used to list all the customers from the database
 	@Override
 	public List<Customer> showAllCustomers() {
 		logger.info("View all customers");
 		return custRepo.findAll();
 	}
-
+	// Used to delete the customer
 	@Override
 	public Customer deleteCustomer(int customerid) {
 		logger.info("Delete customer by id");
@@ -82,15 +82,15 @@ public class CustomerServiceImpl implements ICustomerService {
 		custRepo.deleteById(customerid);
 		return cust;
 	}
-
+	// Used to list all the orders from the database
 	@Override
 	public List<Order> showAllOrders() {
 		logger.info("View all orders");
 		return orderRepo.findAll();
 	}
-	
+	// Get a specific customer of the given email id
 	@Override
-	public Customer findCustomerByEmailId(String email) {
-		return custRepo.findCustomerByEmailId(email);
+	public Customer findCustomerByEmail(String email) {
+		return custRepo.findCustomerByEmail(email);
 	}
 }

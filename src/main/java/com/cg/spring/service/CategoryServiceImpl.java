@@ -21,7 +21,7 @@ public class CategoryServiceImpl implements ICategoryService {
 	ICategoryRepository catRepo;
 	@Autowired
 	IMedicineRepository medRepo;
-
+	// Get a specific category of the given ID
 	@Override
 	public Category viewCategory(String categoryId) {
 		logger.info("View category by id");
@@ -31,19 +31,19 @@ public class CategoryServiceImpl implements ICategoryService {
 		}
 		return opt.get();
 	}
-
+	// Used to list all the category from the database
 	@Override
 	public List<Category> showAllCategory() {
 		logger.info("View all categories in database");
 		return catRepo.findAll();
 	}
-
+	// Used to store the given category Object passed from the controller
 	@Override
 	public Category addCategory(Category category) {
 		logger.info("Add category to the database");
 		return catRepo.save(category);
 	}
-
+	// Used to delete the category
 	@Override
 	public Category deleteCategory(String categoryId) {
 		logger.info("Delete category by id");
@@ -55,7 +55,7 @@ public class CategoryServiceImpl implements ICategoryService {
 		catRepo.deleteById(categoryId);
 		return cat;
 	}
-
+	// Used to update the category of given object
 	@Override
 	public Category updateCategory(Category category) {
 		logger.info("Update category name");
@@ -67,7 +67,7 @@ public class CategoryServiceImpl implements ICategoryService {
 		cat.setCategoryName(category.getCategoryName());
 		return catRepo.save(cat);
 	}
-
+	// Get a specific medicine of the given ID
 	@Override
 	public Medicine viewMedicineById(String medicineId) {
 		logger.info("View medicine by medicineid");
