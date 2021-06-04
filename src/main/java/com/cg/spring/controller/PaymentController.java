@@ -1,5 +1,6 @@
 package com.cg.spring.controller;
 
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,9 @@ import com.cg.spring.service.IPaymentService;
 
 @RestController
 public class PaymentController {
+	
+	org.apache.logging.log4j.Logger logger = LogManager.getLogger(PaymentController.class);
+	
 	@Autowired
 	IPaymentService paymentService;
 	@Autowired
@@ -27,6 +31,7 @@ public class PaymentController {
 
 	@GetMapping("/order/payment/{id}")
 	public ResponseEntity<Payment> findPaymentBypId(@PathVariable("id") int pId) {
+		logger.info("View payment by id");
 		Payment pay = paymentService.findById(pId);
 		if (pay == null) {
 			throw new OrderNotFoundException("payment not found with id to find:" + pId);
@@ -37,7 +42,7 @@ public class PaymentController {
 
 	@PostMapping("/orders/payment/placeorder")
 	public ResponseEntity<Payment> placeOrder(@RequestBody OrderRequest req) {
-
+		logger.info("Place order");
 		return new ResponseEntity<>(paymentService.save(req.getPayment()), HttpStatus.OK);
 	}
 

@@ -1,14 +1,13 @@
 package com.cg.spring.model;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,24 +29,22 @@ public class Customer {
 	@NonNull
 	private String customerName;
 	@NonNull
+	@Size(min=8,message="Minimum characters in password")
+	@NotEmpty
 	private String customerPassword;
 	@NonNull
 	private Long mobileNumber;
 	@NonNull
 	private String emailId;
-
-	@OneToOne(targetEntity = Cart.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "cart_fk", referencedColumnName = "cartId")
-	@NonNull
-	private Cart cart;
+	
+	
 
 	// One to One Mapping
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "address_fk", referencedColumnName = "addressId")
 	private Address address;
-	@JsonIgnore
-	@OneToMany(targetEntity = Order.class, cascade = CascadeType.ALL,mappedBy = "customer")
-	private List<Order> orders;
+
 	// Constructor
 	public Customer() {
 	}

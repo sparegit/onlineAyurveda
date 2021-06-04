@@ -2,6 +2,7 @@ package com.cg.spring.controller;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,35 +14,36 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.spring.exception.CustomerNotFoundException;
 import com.cg.spring.model.Customer;
-import com.cg.spring.repository.ICustomerRepository;
+
 import com.cg.spring.service.ICustomerService;
-@CrossOrigin(origins = "http://localhost:3000")
+
+@CrossOrigin
 @RestController
+@RequestMapping("/api")
 public class CustomerController {
+	
+	org.apache.logging.log4j.Logger logger = LogManager.getLogger(CustomerController.class);
 
 	@Autowired
 	ICustomerService custService;
-	@Autowired
-	ICustomerRepository custRepo;
-
+	
 	// Add
 	@PostMapping("/customer")
 	public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
-		Customer cust=custRepo.findCustomerByEmailId(customer.getEmailId());
-		if(cust==null) {
+		logger.info("Adding customer in database");
 		custService.addCustomer(customer);
 		return new ResponseEntity<>(customer, HttpStatus.OK);
-		}
-		return new ResponseEntity<>(customer,HttpStatus.ALREADY_REPORTED);
 	}
 
 	// Update
 	@PutMapping("/customer/{id}")
 	public ResponseEntity<Customer> updateCustomer(@PathVariable("id") int id, @RequestBody Customer customer) {
+		logger.info("Updating customer details in database");
 		Customer cust = custService.updateCustomer(customer);
 		if (cust == null) {
 			throw new CustomerNotFoundException("Customer not found with id to update " + id);
@@ -53,12 +55,14 @@ public class CustomerController {
 	@PatchMapping("/customer/{name}")
 	public ResponseEntity<Customer> updateCustomerName(@PathVariable("name") String customerName,
 			@RequestBody Customer customer) {
+		logger.info("Updating customer name in database");
 		return new ResponseEntity<>(custService.updateCustomerName(customer), HttpStatus.OK);
 	}
 
 	// ViewbyId
 	@GetMapping("/customer/{id}")
 	public ResponseEntity<Customer> viewCustomerById(@PathVariable("id") int customerId) {
+		logger.info("View customer by Id");
 		Customer cust = custService.viewCustomerById(customerId);
 		if (cust == null) {
 			throw new CustomerNotFoundException("Customer not found with id to view " + customerId);
@@ -69,12 +73,14 @@ public class CustomerController {
 	// ViewAll
 	@GetMapping("/customer")
 	public ResponseEntity<List<Customer>> showAllCustomers() {
+		logger.info("View all customers");
 		return new ResponseEntity<>(custService.showAllCustomers(), HttpStatus.OK);
 	}
 
 	// Delete
 	@DeleteMapping("/customer/{id}")
 	public ResponseEntity<Customer> deleteCustomer(@PathVariable("id") int customerId) {
+		logger.info("Delete customer by id");
 		Customer cust = custService.viewCustomerById(customerId);
 		if (cust == null) {
 			throw new CustomerNotFoundException("Customer not found with id to delete " + customerId);

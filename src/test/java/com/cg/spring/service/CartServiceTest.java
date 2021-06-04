@@ -20,7 +20,7 @@ class CartServiceTest {
 	@Autowired
 	ICartService cartService;
 
-	@Test
+/*	@Test
 	@Disabled
 	void testaddToCart() {
 		Cart cart = new Cart();
@@ -78,5 +78,5 @@ class CartServiceTest {
 		List<Medicine> medicine = Stream.of(m1, m2).collect(Collectors.toList());
 		// Cart cart = new Cart(115L,1,"kayatrimeni",1,299,299,cust);
 
-	}
+	}*/
 }

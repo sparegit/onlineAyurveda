@@ -2,6 +2,7 @@ package com.cg.spring.service;
 
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,8 @@ import com.cg.spring.repository.ICustomerRepository;
 @Service
 public class CustomerLoginServiceImplementation implements ICustomerLoginService {
 	
+	org.apache.logging.log4j.Logger logger = LogManager.getLogger(CustomerLoginServiceImplementation.class);
+	
 	@Autowired
 	ICustomerLoginRepository loginRepo;
 	@Autowired
@@ -20,6 +23,7 @@ public class CustomerLoginServiceImplementation implements ICustomerLoginService
 
 	@Override
 	public Customer login(CustomerLogin user) {
+		logger.info("Customer login");
 		Optional<CustomerLogin> dbUsr = loginRepo.findById(user.getEmail());
 		Customer cust = null;
 		if ( !dbUsr.isPresent() || !dbUsr.get().isLoggedIn()) {
@@ -34,6 +38,7 @@ public class CustomerLoginServiceImplementation implements ICustomerLoginService
 
 	@Override
 	public String logout(String userId) {
+		logger.info("Customer logout");
 		Optional<CustomerLogin> userfield = loginRepo.findById(userId);
 		CustomerLogin dbUsr = null;
 		if (userfield.isPresent()) {

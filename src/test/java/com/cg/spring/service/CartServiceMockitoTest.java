@@ -33,7 +33,7 @@ class CartServiceMockitoTest {
 		MockitoAnnotations.openMocks(this);
 	}
 
-	@Test
+/*	@Test
 	@Disabled
 	void testaddToCart() {
 		Cart cart = new Cart(115L, "kayatrimeni", 1, 299, 299);
@@ -72,6 +72,6 @@ class CartServiceMockitoTest {
 		Mockito.when(cartRepo.findById(115L)).thenReturn(Optional.of(cart));
 		cartService.deleteCartById(115L);
 		assertEquals(115L, cart.getCartId());
-	}
+	}*/
 
 }

@@ -5,17 +5,16 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -24,13 +23,16 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @ToString
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 public class Cart {
 	// Fields
 	@Id
 	@NonNull
+	@GeneratedValue
 	private long cartId;
+	@NonNull
+	private int customerId;
+	@NonNull
+	private String medId;
 	@NonNull
 	private String medicineName;
 	@NonNull
@@ -39,19 +41,23 @@ public class Cart {
 	private double price;
 	@NonNull
 	private double totalAmount;
+	
+	//One to One Mapping
+	@JsonIgnore
+	@OneToOne(targetEntity = Customer.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "customer_fk", referencedColumnName = "customerId")
+	private Customer customer;
 
-	// ManyToMany
+	// Many To Many Mapping
+	@JsonIgnore
 	@ManyToMany(targetEntity = Medicine.class, cascade = CascadeType.ALL)
 	@JoinTable(name = "cart_med", joinColumns = { @JoinColumn(name = "cart_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "med_id") })
-	@NonNull
 	private List<Medicine> medicineList = new ArrayList<>();
-
-	@JsonManagedReference
-	public List<Medicine> getMedicine() {
-		return medicineList;
-	}
+	
+	
 
 	// Constructor
-	
+	public Cart() {
+	}
 }

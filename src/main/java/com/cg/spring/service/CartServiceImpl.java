@@ -3,11 +3,11 @@ package com.cg.spring.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.spring.model.Cart;
-import com.cg.spring.model.Customer;
 import com.cg.spring.model.Medicine;
 import com.cg.spring.repository.ICartRepository;
 import com.cg.spring.repository.ICustomerRepository;
@@ -15,6 +15,8 @@ import com.cg.spring.repository.IMedicineRepository;
 
 @Service
 public class CartServiceImpl implements ICartService {
+	
+	org.apache.logging.log4j.Logger logger = LogManager.getLogger(CartServiceImpl.class);
 
 	@Autowired
 	ICartRepository cartRepo;
@@ -26,20 +28,26 @@ public class CartServiceImpl implements ICartService {
 	ICustomerRepository custRepo;
 
 	@Override
-	public Cart addToCart(Cart cart) {
+	public Cart addItemToCart(Medicine medicine) {
+		logger.info("Adding medicines to the cart");
+		Optional<Medicine> med = medRepo.findById(medicine.getMedicineId());
+		
+		if(!med.isPresent()) {
+			return null;
+		}
+		Cart cart = new Cart();
+		cart.getMedicineList().add(medicine);
 		return cartRepo.save(cart);
 	}
+}
 
-	@Override
+	/*@Override
 	public List<Cart> viewAllItems() {
 		return cartRepo.findAll();
 	}
 
-	@Override
-	public void removeAllItems() {
-		cartRepo.deleteAll();
-
-	}
+	
+	
 
 	@Override
 	public Cart updateItemQuantity(Long cartId, Cart cart) {
@@ -53,61 +61,22 @@ public class CartServiceImpl implements ICartService {
 		cart1.setQuantity(cart.getQuantity());
 		return cartRepo.save(cart);
 	}
+}
 
-	@Override
-	public Cart deleteCartById(Long cartid) {
+/*	@Override
+	//public Cart deleteCartById(Long cartid) {
 		Optional<Cart> opt = cartRepo.findById(cartid);
 		if (!opt.isPresent()) {
 			return null;
 		}
 		Cart car = opt.get();
-		cartRepo.deleteById(cartid);
+		cartRepo.deleteById(car.getCartId());
 		return car;
 	}
 
 	@Override
-	public Cart addMedicineToCustomerCart(String medId, int custId, long cartId) {
-		Optional<Medicine> med = medRepo.findById(medId);
-		Optional<Customer> cust = custRepo.findById(custId);
-		Optional<Cart> cart = cartRepo.findById(cartId);
-
-		if (!med.isPresent() || !cust.isPresent() || !cart.isPresent()) {
-			return null;
-		}
-		Customer dbcustomer = cust.get();
-		Medicine dbmedicine = med.get();
-		// Cart dbcart = cart.get();
-
-		// add medicine to customer cart
-		Cart cart1 = dbcustomer.getCart();
-		cart1.getMedicine().add(dbmedicine);
-
-		return cartRepo.save(cart1);
-	}
-
-	@Override
-	public Cart removeMedFromCustomerCart(String medId, int custId, long cartId) {
-		Optional<Medicine> med = medRepo.findById(medId);
-		Optional<Customer> cust = custRepo.findById(custId);
-		Optional<Cart> cart = cartRepo.findById(cartId);
-
-		if (!med.isPresent() || !cust.isPresent() || !cart.isPresent()) {
-			return null;
-		}
-		Customer dbcustomer = cust.get();
-		Medicine dbmedicine = med.get();
-		// Cart dbcart = cart.get();
-
-		Cart cart1 = dbcustomer.getCart();
-		cart1.getMedicine().remove(dbmedicine);
-
-		return cartRepo.save(cart1);
-
-	}
-
-	@Override
-	public Cart updateCustomerCartMedicineQuantity(int medId, int custId, int cartId, int quantity) {
-
+	public Cart removeItem(int id) {
+		// TODO Auto-generated method stub
 		return null;
 	}
-}
+}*/

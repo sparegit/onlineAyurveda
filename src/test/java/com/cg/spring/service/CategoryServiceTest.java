@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import com.cg.spring.model.Medicine;
 
 @SpringBootTest
 class CategoryServiceTest {
+	
+	org.apache.logging.log4j.Logger logger = LogManager.getLogger(CategoryServiceTest.class);
 
 	@Autowired
 	ICategoryService catService;
@@ -22,6 +25,7 @@ class CategoryServiceTest {
 	@Disabled
 	public void testshowAllCategory() {
 		List<Category> cat = catService.showAllCategory();
+		logger.info(cat);
 		assertEquals(4, cat.size());
 
 	}
@@ -31,7 +35,7 @@ class CategoryServiceTest {
 	@Disabled
 	public void viewCategory() {
 		Category cat = catService.viewCategory("2");
-		System.out.println(cat);
+		logger.info(cat);
 		assertEquals("caugh", cat.getCategoryName());
 	}
 
@@ -40,6 +44,7 @@ class CategoryServiceTest {
 	@Disabled
 	public void deleteCategory() {
 		Category cat = catService.deleteCategory("4");
+		logger.info(cat);
 		assertEquals("4", cat.getCategoryId());
 	}
 
@@ -49,6 +54,7 @@ class CategoryServiceTest {
 	public void addCategory() {
 		Category cat = new Category("5", "caugh");
 		Category persistedCat = catService.addCategory(cat);
+		logger.info(persistedCat);
 		assertEquals("4", persistedCat.getCategoryId());
 		assertEquals("caugh", persistedCat.getCategoryName());
 	}
@@ -61,6 +67,7 @@ class CategoryServiceTest {
 		cat.setCategoryId("3");
 		cat.setCategoryName("cold");
 		Category updatecat = catService.updateCategory(cat);
+		logger.info(updatecat);
 		assertEquals("cold", updatecat.getCategoryName());
 	}
 
@@ -68,6 +75,7 @@ class CategoryServiceTest {
 	@Disabled
 	public void viewMedicineById() {
 		Medicine med = catService.viewMedicineById("1");
+		logger.info(med);
 		assertEquals("ayurveda", med.getMedicineName());
 	}
 

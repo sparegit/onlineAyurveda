@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import com.cg.spring.repository.IMedicineRepository;
 
 @SpringBootTest
 class OrderServiceTest {
+	
+	org.apache.logging.log4j.Logger logger = LogManager.getLogger(OrderServiceTest.class);
 
 	@Autowired
 	IOrderService orderService;
@@ -30,12 +33,14 @@ class OrderServiceTest {
 
 	void testFindAllOrders() {
 		List<Order> orders = orderService.findAll();
+		logger.info(orders);
 		assertEquals(5, orders.size());
 	}
 
 	@Test
 	void testFindOrderById() {
 		Order order = orderService.findById(9);
+		logger.info(order);
 		assertEquals(9, order.getOrderId());
 		assertEquals("pass", order.getStatus());
 		assertEquals("2019-03-29", order.getOrderDate());
@@ -46,6 +51,7 @@ class OrderServiceTest {
 	@Test
 	void testFindByOrderDate() {
 		List<Order> orders = orderService.findAllOrderByOrderDate("2020-03-29");
+		logger.info(orders);
 		assertEquals(0, orders.size());
 	}
 
@@ -54,6 +60,7 @@ class OrderServiceTest {
 	void testAddOrder() {
 		Order order = new Order(9, "2019-03-29", null, "2020-03-29", 200f, "pass",null);
 		Order persistedOrder = orderService.save(order);
+		logger.info(persistedOrder);
 		assertEquals(9, persistedOrder.getOrderId());
 		assertEquals("2019-03-29", persistedOrder.getOrderDate());
 
@@ -64,6 +71,7 @@ class OrderServiceTest {
 		Order order0 = new Order(12, "2019-03-29", null, "2020-03-29", 200f, "fail",null);
 		orderService.save(order0);
 		Order persistedOrder = orderService.cancelOrder(12);
+		logger.info(persistedOrder);
 		assertEquals(12, persistedOrder.getOrderId());
 		assertEquals("fail", persistedOrder.getStatus());
 
@@ -79,6 +87,7 @@ class OrderServiceTest {
 		orderService.save(order);
 		List<Order> orders = orderService.findAll();
 		List<Order> ordersWithMedId = new ArrayList<Order>();
+		logger.info(ordersWithMedId);
 		for (int i = 0; i < orders.size(); i++) {
 			List<Medicine> medicines = orders.get(i).getMedicineList();
 			for (int j = 0; j < medicines.size(); j++) {
@@ -95,6 +104,7 @@ class OrderServiceTest {
 		Order order0 = new Order(12, "2019-03-29", null, "2020-03-29", 200f, "fail",null);
 		orderService.save(order0);
 		Order ord= orderService.findById(12);
+		logger.info(ord);
 		assertEquals(200f, ord.getTotalCost());
 	}
 	@Test
@@ -102,6 +112,7 @@ class OrderServiceTest {
 		Order ord = orderService.findById(12);
 		Order order = new Order(12, "2019-03-29", null, "2020-03-29", 200f, "pass",null);
 		ord.setStatus(order.getStatus());
+		logger.info(order);
 		assertEquals("pass", ord.getStatus());
 	}
 

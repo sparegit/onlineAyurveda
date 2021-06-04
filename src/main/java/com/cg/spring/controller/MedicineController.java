@@ -2,6 +2,8 @@ package com.cg.spring.controller;
 
 import javax.validation.Valid;
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,8 @@ import com.cg.spring.service.IMedicineService;
 @RestController
 @RequestMapping(value = "/medicine")
 public class MedicineController {
+	
+	org.apache.logging.log4j.Logger logger = LogManager.getLogger(MedicineController.class);
 
 	@Autowired
 	IMedicineService medService;
@@ -31,6 +35,7 @@ public class MedicineController {
 	// READ
 	@GetMapping("/id/{id}")
 	public ResponseEntity<Medicine> viewMedicine(@PathVariable("id") String medicineId) {
+		logger.info("View medicine by id");
 		Medicine med = medService.viewMedicine(medicineId);
 		if (med == null) {
 			throw new MedicineNotFoundException("Medicine not found with this id" + medicineId);
@@ -41,18 +46,21 @@ public class MedicineController {
 	// showAll
 	@GetMapping("")
 	public ResponseEntity<List<Medicine>> showAllMedicine() {
+		logger.info("View all medicines from database");
 		return new ResponseEntity<>(medService.showAllMedicine(), HttpStatus.OK);
 	}
 
 	// find all order
 	@GetMapping("/order")
 	public ResponseEntity<List<Order>> getOrderList() {
+		logger.info("Get all Orders");
 		return new ResponseEntity<>(medService.getOrderList(), HttpStatus.OK);
 	}
 
 	// WRITE
 	@PostMapping("")
 	public ResponseEntity<Medicine> addMedicine(@Valid @RequestBody Medicine medicine) {
+		logger.info("View medicine by id");
 		Medicine med = medService.addMedicine(medicine);
 		return new ResponseEntity<>(med, HttpStatus.CREATED);
 	}
@@ -60,6 +68,7 @@ public class MedicineController {
 	// DELETE
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Medicine> deleteMedicine(@PathVariable("id") String medicineId) {
+		logger.info("Delete medicine by id");
 		Medicine med = medService.deleteMedicine(medicineId);
 		if (med == null) {
 			throw new MedicineNotFoundException("Medicine not found with this id to delete" + medicineId);
@@ -70,7 +79,8 @@ public class MedicineController {
 	// UPDATE
 	@PutMapping("/{id}")
 	public ResponseEntity<Medicine> updateMedicine(@PathVariable("id") String medicineId,
-			@RequestBody Medicine medicine)  {
+			@RequestBody Medicine medicine) {
+		logger.info("Update medicine by id");
 		Medicine med = medService.updateMedicine(medicine);
 		if (med == null) {
 			throw new MedicineNotFoundException("Medicine not found with this id to update" + medicineId);
@@ -81,6 +91,7 @@ public class MedicineController {
 	// find Category By Id
 	@GetMapping("/{id}")
 	public ResponseEntity<Category> viewCategoryById(@PathVariable("id") String categoryId) {
+		logger.info("View category by id");
 		Category cat = medService.viewCategoryById(categoryId);
 		if (cat == null) {
 			throw new CategoryNotFoundException("Medicine not found with this id" + categoryId);
@@ -92,7 +103,8 @@ public class MedicineController {
 	// Updating specific property
 	@PatchMapping("/{id}")
 	public ResponseEntity<Medicine> updateMedicineName(@PathVariable("id") String medicineId,
-			@RequestBody Medicine medicine)  {
+			@RequestBody Medicine medicine) {
+		logger.info("Update medicine by id");
 		Medicine med = medService.updateMedicineName(medicineId, medicine);
 		if (med == null) {
 			throw new MedicineNotFoundException("Medicine not found with this id to update");
@@ -103,6 +115,7 @@ public class MedicineController {
 	// find medicine by name
 	@GetMapping("/name/{name}")
 	public ResponseEntity<Medicine> findByMedicineName(@PathVariable("name") String medicineName) {
+		logger.info("View medicine by name");
 		Medicine med = medService.findByMedicineName(medicineName);
 		return new ResponseEntity<>(med, HttpStatus.OK);
 	}

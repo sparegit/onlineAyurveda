@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,9 @@ import com.cg.spring.repository.IOrderRepository;
 
 @Service
 public class OrderServiceImplementation implements IOrderService {
+	
+	org.apache.logging.log4j.Logger logger = LogManager.getLogger(OrderServiceImplementation.class);
+	
 	@Autowired
 	IOrderRepository orderRepository;
 
@@ -31,6 +35,7 @@ public class OrderServiceImplementation implements IOrderService {
 
 	@Override
 	public Order findById(int order) {
+		logger.info("View order by id");
 		Optional<Order> opt = orderRepository.findById(order);
 		if (!opt.isPresent()) {
 			return null;
@@ -40,18 +45,19 @@ public class OrderServiceImplementation implements IOrderService {
 
 	@Override
 	public Order save(Order order) {
-//		Optional<Customer> opt = customerRepo.findById(1);
+		logger.info("Add order to the database");
 		return orderRepository.save(order);
 	}
 
 	@Override
 	public List<Order> findAll() {
-
+		logger.info("View all orders");
 		return orderRepository.findAll();
 	}
 
 	@Override
 	public Order update(Order order) {
+		logger.info("Update order details in database");
 		Optional<Order> opt = orderRepository.findById(order.getOrderId());
 		if (!opt.isPresent()) {
 			return null;
@@ -64,6 +70,7 @@ public class OrderServiceImplementation implements IOrderService {
 
 	@Override
 	public Order cancelOrder(int id) {
+		logger.info("Cancel order by id");
 		Optional<Order> opt = orderRepository.findById(id);
 		if (!opt.isPresent()) {
 			return null;
@@ -76,6 +83,7 @@ public class OrderServiceImplementation implements IOrderService {
 
 	@Override
 	public double calculateTotalCost(int orderId) {
+		logger.info("Calculating cost of order by id");
 		Optional<Order> opt = orderRepository.findById(orderId);
 		if (!opt.isPresent()) {
 			return 0.0f;
@@ -87,16 +95,18 @@ public class OrderServiceImplementation implements IOrderService {
 
 	@Override
 	public List<Order> findAllOrderByOrderDate(String orderDate) {
+		logger.info("View all orders by date");
 		Optional<List<Order>> opt = Optional.ofNullable(orderRepository.findAllOrderByOrderDate(orderDate));
 		if (!opt.isPresent()) {
 			return null;
 		}
 		List<Order> ord = opt.get();
-		return ord;
+		return orderRepository.findAllOrderByOrderDate(orderDate);
 	}
 
 	@Override
 	public Order updateOrderStatusByUserId(int id, Order order) {
+		logger.info("View order status by id");
 		Optional<Order> ord = orderRepository.findById(id);
 		if (!ord.isPresent()) {
 			return null;
@@ -107,12 +117,13 @@ public class OrderServiceImplementation implements IOrderService {
 
 	@Override
 	public List<Order> getOrderListBasedOnMedicineId(String medicineid) {
+		logger.info("View order list based on medicine id");
 		Optional<Medicine> med = medicineRepo.findById(medicineid);
 		if (!med.isPresent()) {
 			return null;
 		}
 		List<Order> orders = medicineServ.getOrderList();
-		List<Order> ordersWithMedId = new ArrayList<Order>();
+		List<Order> ordersWithMedId = new ArrayList();
 		for (int i = 0; i < orders.size(); i++) {
 			List<Medicine> medicines = orders.get(i).getMedicineList();
 			for (int j = 0; j < medicines.size(); j++) {
@@ -126,12 +137,13 @@ public class OrderServiceImplementation implements IOrderService {
 
 	@Override
 	public List<Order> getOrderListBasedOnCustomer(Customer customer) {
+		logger.info("Get order list based on customer");
 		Optional<Customer> cust = customerRepo.findById(customer.getCustomerId());
 		if (cust == null) {
 			return null;
 		}
 		List<Order> orders = customerService.showAllOrders();
-		List<Order> ordersOfCustomer = new ArrayList<Order>();
+		List<Order> ordersOfCustomer = new ArrayList();
 		for (int i = 0; i < orders.size(); i++) {
 			if (orders.get(i).getCustomer().getCustomerId() == cust.get().getCustomerId()) {
 				ordersOfCustomer.add(orders.get(i));

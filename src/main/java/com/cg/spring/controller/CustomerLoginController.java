@@ -1,5 +1,6 @@
 package com.cg.spring.controller;
 
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +19,16 @@ import com.cg.spring.service.ICustomerService;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class CustomerLoginController {
+	
+	org.apache.logging.log4j.Logger logger = LogManager.getLogger(CustomerLoginController.class);
+	
 	@Autowired
 	ICustomerService custService;
 	@Autowired
 	ICustomerLoginService loginService;
 	@PostMapping("/customer/login")
 	public ResponseEntity<Customer>  Login(@RequestBody CustomerLogin loginentity) {
+		logger.info("Login by the customer");
 		Customer cust=null;
 		if (loginentity.getEmail()==null || loginentity.getPassword()==null || loginentity.getEmail().equals("")||loginentity.getPassword().equals("")) {
 			throw new CustomerNotFoundException("Userid or Password is invalid");
@@ -43,6 +48,7 @@ public class CustomerLoginController {
 	 //logout service
 		@GetMapping("customer/logout/{emailId}")
 		public String Logout( @PathVariable("emailId")String emailId){
+			logger.info("Logout by the customer");
 			return loginService.logout(emailId);
 		}
 }

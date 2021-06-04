@@ -3,6 +3,7 @@ package com.cg.spring.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,22 +12,27 @@ import com.cg.spring.repository.IAddressRepository;
 
 @Service
 public class AddressServiceImpl implements IAddressService {
+	
+	org.apache.logging.log4j.Logger logger = LogManager.getLogger(AddressServiceImpl.class);
 
 	@Autowired
 	IAddressRepository addrRepo;
 
 	@Override
 	public Address save(Address address) {
+		logger.info("Adding address to the database");
 		return addrRepo.save(address);
 	}
 
 	@Override
 	public List<Address> findAllAddresses() {
+		logger.info("View all addresses");
 		return addrRepo.findAll();
 	}
 
 	@Override
 	public Address findAddressById(long addressid) {
+		logger.info("View address by id");
 		Optional<Address> addr = addrRepo.findById(addressid);
 		if (!addr.isPresent()) {
 			return null;
@@ -36,6 +42,7 @@ public class AddressServiceImpl implements IAddressService {
 
 	@Override
 	public Address update(Address address) {
+		logger.info("Update address in the database");
 		Optional<Address> addr = addrRepo.findById(address.getAddressId());
 		if (!addr.isPresent()) {
 			return null;
@@ -51,11 +58,12 @@ public class AddressServiceImpl implements IAddressService {
 
 	@Override
 	public Address deleteAddressById(long addressid) {
+		logger.info("Deleting address by id");
 		Optional<Address> addr = addrRepo.findById(addressid);
 		if (!addr.isPresent()) {
 			return null;
 		}
-		addrRepo.delete(addr.get());
+		addrRepo.deleteById(addressid);
 		return addr.get();
 	}
 }
