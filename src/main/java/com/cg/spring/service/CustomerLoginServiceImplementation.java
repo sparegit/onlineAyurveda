@@ -24,27 +24,33 @@ public class CustomerLoginServiceImplementation implements ICustomerLoginService
 	@Override
 	public Customer login(CustomerLogin user) {
 		logger.info("Customer login");
-		Optional<CustomerLogin> dbUsr = loginRepo.findById(user.getEmail());
+		Optional<Customer> customer = Optional.ofNullable(registerRepo.findCustomerByEmail(user.getEmail()));
 		Customer cust = null;
-		if ( !dbUsr.isPresent() || !dbUsr.get().isLoggedIn()) {
-			user.setLoggedIn(true);
-			loginRepo.save(user);
-			cust=registerRepo.findCustomerByEmail(user.getEmail());
-			return cust;
-		} 
+		if(customer.isPresent()) {
+			Optional<CustomerLogin> dbUsr = loginRepo.findById(user.getEmail());
+
+			if ( !dbUsr.isPresent() || !dbUsr.get().isLoggedIn()) {
+				user.setLoggedIn(true);
+				loginRepo.save(user);
+				cust=registerRepo.findCustomerByEmail(user.getEmail());
+				return cust;
+			} 
+		}
+		
 
 		return cust;
 	}
 
 	@Override
-	public String logout(String userId) {
+	public String logout(String email) {
 		logger.info("Customer logout");
-		Optional<CustomerLogin> userfield = loginRepo.findById(userId);
+		Optional<CustomerLogin> userfield = loginRepo.findById(email);
+		logger.info(userfield.get());
 		CustomerLogin dbUsr = null;
 		if (userfield.isPresent()) {
 			dbUsr = userfield.get();
 		}
-		if (dbUsr != null && dbUsr.getEmail().equals(userId) && dbUsr.isLoggedIn()) {
+		if (dbUsr != null && dbUsr.getEmail().equals(email) && dbUsr.isLoggedIn()) {
 
 			dbUsr.setLoggedIn(false);
 			loginRepo.save(dbUsr);
@@ -53,6 +59,28 @@ public class CustomerLoginServiceImplementation implements ICustomerLoginService
 		throw new CustomerNotFoundException("User not logged in");
 	}
 
-	
+	public Customer getUser(String email) {
+		Optional<CustomerLogin> userfield = loginRepo.findById(email);
+		logger.info(userfield.get());
+		CustomerLogin dbUsr = null;
+		if (userfield.isPresent()) {
+			dbUsr = userfield.get();
+		}
+		if (dbUsr != null && dbUsr.getEmail().equals(email) && dbUsr.isLoggedIn()) {
+			Optional<Customer> customer = Optional.ofNullable(registerRepo.findCustomerByEmail(email));
+			Customer cust=customer.get();
+			Customer obj=new Customer();
+			obj.setCustomerId(cust.getCustomerId());
+			obj.setAddress(cust.getAddress());
+			obj.setCustomerName(cust.getCustomerName());
+			obj.setEmail(cust.getEmail());
+			obj.setMobileNumber(cust.getMobileNumber());
+			
+			return obj;
+		}
+		
+		return null;
+		
+	}
 
 }

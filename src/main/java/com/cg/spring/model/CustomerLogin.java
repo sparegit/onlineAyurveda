@@ -26,7 +26,7 @@ public class CustomerLogin {
 	@Email
 	private String email;
 	@NotEmpty(message="Please enter your password")
-	@Size(min=10,max = 10,message = "Mobilenumber must have 10 digits")
+	@Size(min=5,message = "Mobilenumber must have 10 digits")
 	private String password;
     private boolean loggedIn = false;
 }

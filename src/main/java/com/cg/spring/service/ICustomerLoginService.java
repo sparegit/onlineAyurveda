@@ -9,5 +9,7 @@ public interface ICustomerLoginService {
 	public Customer login(CustomerLogin user);
 
 	// Method to be override by the implementing class
-	public String logout(String userId);
+	public String logout(String email);
+	
+	public Customer getUser(String email);
 }

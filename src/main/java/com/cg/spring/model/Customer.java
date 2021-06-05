@@ -7,12 +7,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Range;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -32,12 +38,12 @@ public class Customer {
 	@Size(min = 3 ,message = "Minimum characters in name must be 3")
 	private String customerName;
 	@NonNull
-	@Size(min=8, max = 15, message="Minimum characters in password")
+	@Size(min=5, max = 15, message="Minimum characters in password")
 	@NotEmpty
 	private String customerPassword;
+	@Min(10)
+	
 	@NonNull
-	@NotEmpty 
-	@Size(min=10,max = 10,message = "Mobilenumber must have 10 digits")
 	private Long mobileNumber;
 	@NonNull
 	@NotEmpty

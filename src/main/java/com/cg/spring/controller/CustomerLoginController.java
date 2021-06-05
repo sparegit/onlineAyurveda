@@ -50,9 +50,16 @@ public class CustomerLoginController {
 		return new ResponseEntity<>(cust, HttpStatus.OK);
 	}
 	 //logout service
-		@GetMapping("customer/logout/{emailId}")
-		public String Logout(@Email @PathVariable("emailId")String emailId){
+		@PostMapping("customer/logout/{email}")
+		public String Logout(@Email @PathVariable("email")String email){
 			logger.info("Logout by the customer");
-			return loginService.logout(emailId);
+			return loginService.logout(email);
+		}
+		
+		//get user auth service
+		@GetMapping("customer/getuser/{email}")
+		public Customer getUser(@Email @PathVariable("email")String email) {
+			logger.info("getting customer");
+			return loginService.getUser(email);
 		}
 }
