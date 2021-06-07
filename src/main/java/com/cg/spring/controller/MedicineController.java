@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -16,13 +17,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.cg.spring.model.Category;
+//import com.cg.spring.model.Category;
 import com.cg.spring.model.Medicine;
 import com.cg.spring.model.Order;
 import com.cg.spring.exception.CategoryNotFoundException;
 import com.cg.spring.exception.MedicineNotFoundException;
 import com.cg.spring.service.IMedicineService;
 
+@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3001")
 @RestController
 @RequestMapping(value = "/medicine")
 public class MedicineController {
@@ -57,7 +60,7 @@ public class MedicineController {
 		// to the service layer
 	@PostMapping("")
 	public ResponseEntity<Medicine> addMedicine(@Valid @RequestBody Medicine medicine) {
-		logger.info("View medicine by id");
+		logger.info("Add medicine by id");
 		Medicine med = medService.addMedicine(medicine);
 		return new ResponseEntity<>(med, HttpStatus.CREATED);
 	}
@@ -89,7 +92,7 @@ public class MedicineController {
 	}
 
 	// This controller is used to get a specific category on basis of CategoryID
-	@GetMapping("/{id}")
+	/*@GetMapping("/{id}")
 	public ResponseEntity<Category> viewCategoryById(@PathVariable("id") int categoryId) {
 		logger.info("View category by id");
 		Category cat = medService.viewCategoryById(categoryId);
@@ -97,7 +100,7 @@ public class MedicineController {
 			throw new CategoryNotFoundException("Medicine not found with this id" + categoryId);
 		}
 		return new ResponseEntity<>(cat, HttpStatus.OK);
-	}
+	}*/
 
 	// This function is used to update a specific medicine on basis of given
 		// medicine name and returns exception if given medicine id is not found.
@@ -117,6 +120,12 @@ public class MedicineController {
 	public ResponseEntity<Medicine> findByMedicineName(@PathVariable("name") String medicineName) {
 		logger.info("View medicine by name");
 		Medicine med = medService.findByMedicineName(medicineName);
+		return new ResponseEntity<>(med, HttpStatus.OK);
+	}
+	
+	@GetMapping("/medicine/{medicineCategory}")
+	public ResponseEntity<List<Medicine>> findByMedicineCategory(@PathVariable("medicineCategory") String medicineCategory){
+		List<Medicine> med =  medService.findByMedicineCategory(medicineCategory);
 		return new ResponseEntity<>(med, HttpStatus.OK);
 	}
 

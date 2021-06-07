@@ -1,4 +1,4 @@
-package com.cg.spring.controller;
+/*package com.cg.spring.controller;
 
 import java.util.List;
 
@@ -94,5 +94,18 @@ public class CategoryController {
 		}
 		return new ResponseEntity<>(med, HttpStatus.OK);
 	}
+	/*@GetMapping("/category/{name}")
+	public ResponseEntity<List<Medicine>> viewMedicineListBasedOnCategory(Category category) {
 
-}
+		return new ResponseEntity<>(catService.viewMedicineListBasedOnCategory(category), HttpStatus.OK);
+	}*/
+	
+	/*@GetMapping("/category/medicine/{categoryName}")
+	public Medicine findMedicineByCategory(@PathVariable("categoryName") String categoryName)
+	{
+		return(catService.findMedicineByCategory(categoryName));
+		//ResponseEntity<>(catService.viewMedicineListBasedOnCategory(categoryName));
+	}
+
+
+}*/

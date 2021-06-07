@@ -1,4 +1,4 @@
-package com.cg.spring.model;
+/*package com.cg.spring.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -38,4 +38,4 @@ public class Category {
 	public Category() {
 	}
 
-}
+}*/

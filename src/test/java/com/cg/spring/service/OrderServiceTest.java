@@ -81,7 +81,7 @@ class OrderServiceTest {
 	@Test
 	void testGetOrderListBasedOnMedicineId() {
 		Medicine med = new Medicine(144, "asparagus", 499f, LocalDate.parse("2020-03-13"),
-				LocalDate.parse("2022-06-22"));
+				LocalDate.parse("2022-06-22"),"fever","asdfghj");
 		List<Medicine> medList = new ArrayList<>();
 		medList.add(med);
 		Order order = new Order(4, "2019-03-29", medList, "2020-03-29", 200f, "pass",null);
