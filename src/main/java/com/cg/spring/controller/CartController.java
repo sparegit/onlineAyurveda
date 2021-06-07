@@ -33,26 +33,22 @@ public class CartController {
 	// Add
 	@PostMapping("/cart")
 	public ResponseEntity<Cart> addItemToCart(@Valid @RequestBody Cart cart ) {
+		logger.info("Adding items to cart");
 		return new ResponseEntity<>(cartService.addItemToCart(cart), HttpStatus.OK);
 	}
-
+	
+	//ViewAll
 	@GetMapping("/cart/viewAllItems")
 	public ResponseEntity<List<Cart>> viewAllItems() {
 		logger.info("Viewed Successfully");
-		List<Cart> cart =cartService.viewAllItems();
-		return ResponseEntity.ok(cart);
+		return new ResponseEntity<>(cartService.viewAllItems(),HttpStatus.OK);
 	}
-	
-	/**
-	 * This below function is used to update a cart based on the given
-	 * medicineId and redirects to the Cart service
-	 */
 
+	//Update
 	@PatchMapping("/cart/update")
 	public ResponseEntity<Medicine> UpdateMedQuantity(int medId, int quantity) {
 		logger.info("Successfully Updated" + medId, quantity);
-		Medicine medicine = cartService.UpdateMedQuantity(medId, quantity);
-		return ResponseEntity.ok(medicine);
+		return new ResponseEntity<>(cartService.UpdateMedQuantity(medId, quantity),HttpStatus.OK);
 	}
 	
 
