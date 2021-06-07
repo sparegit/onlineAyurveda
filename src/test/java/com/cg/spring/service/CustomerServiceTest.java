@@ -26,7 +26,7 @@ class CustomerServiceTest {
 	@Test
 	@Disabled
 	void testaddCustomer() {
-		Customer customer = new Customer(9, "Akshay", "ak780.$", 9320411200L, "ak07ay@gmail.com");
+		Customer customer = new Customer( "Akshay", "ak780.$", 9320411200L, "ak07ay@gmail.com");
 		Customer persistedCust = custService.addCustomer(customer);
 		logger.info(persistedCust);
 		assertEquals(9, persistedCust.getCustomerId());
@@ -41,7 +41,7 @@ class CustomerServiceTest {
 	@Test
 	@Disabled
 	void testupdateCustomer() {
-		Customer customer = new Customer(7, "Sahana", "saha*001", 9655241002L, "sahana22@yahoo.com");
+		Customer customer = new Customer( "Sahana", "saha*001", 9655241002L, "sahana22@yahoo.com");
 		customer.setCustomerId(7);
 		customer.setCustomerName("Sahana");
 		customer.setCustomerPassword("sahana*001");
@@ -77,7 +77,7 @@ class CustomerServiceTest {
 	@Test
 	@Disabled
 	void testdeleteCustomer() {
-		Customer customer = new Customer(5, "Akhil", "akhi8679", 9522045112L, "akhil86@gmail.com");
+		Customer customer = new Customer( "Akhil", "akhi8679", 9522045112L, "akhil86@gmail.com");
 		Customer persistCust = custService.deleteCustomer(5);
 		logger.info(persistCust);
 		assertEquals(5, persistCust.getCustomerId());

@@ -53,7 +53,7 @@ class MedicineServiceTest {
 	@Test
 	@Disabled
 	public void addMedicine() {
-		Medicine med = new Medicine(3, "ayurveda", 499f, LocalDate.parse("2020-03-13"),
+		Medicine med = new Medicine( "ayurveda", 499f, LocalDate.parse("2020-03-13"),
 				LocalDate.parse("2022-06-22"));
 		Medicine persistedMed = medService.addMedicine(med);
 		logger.info(persistedMed);
@@ -68,7 +68,7 @@ class MedicineServiceTest {
 	@Disabled
 	@Test
 	public void updateMedicine() {
-		Medicine med = new Medicine(6, "Chandana", 600f, LocalDate.parse("2020-03-13"),
+		Medicine med = new Medicine( "Chandana", 600f, LocalDate.parse("2020-03-13"),
 				LocalDate.parse("2022-06-22"));
 		med.setMedicineId(6);
 		med.setMedicineName("Chandana");

@@ -7,7 +7,9 @@ import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.spring.dto.Cartdto;
 import com.cg.spring.model.Cart;
+import com.cg.spring.model.Customer;
 import com.cg.spring.model.Medicine;
 import com.cg.spring.repository.ICartRepository;
 import com.cg.spring.repository.ICustomerRepository;
@@ -26,57 +28,46 @@ public class CartServiceImpl implements ICartService {
 
 	@Autowired
 	ICustomerRepository custRepo;
-	// Used to Store the cart passed as parameter from the Controller function
+
 	@Override
-	public Cart addItemToCart(Medicine medicine) {
-		logger.info("Adding medicines to the cart");
-		Optional<Medicine> med = medRepo.findById(medicine.getMedicineId());
-		
-		if(!med.isPresent()) {
-			return null;
-		}
-		Cart cart = new Cart();
-		cart.getMedicineList().add(medicine);
+	public Cart addItemToCart(Cart cart) {
 		return cartRepo.save(cart);
 	}
-}
 
-	/*@Override
+	@Override
 	public List<Cart> viewAllItems() {
 		return cartRepo.findAll();
 	}
 
-	
-	
 
 	@Override
-	public Cart updateItemQuantity(Long cartId, Cart cart) {
+	public Medicine UpdateMedQuantity(int medId,int quantity) {
+		Optional<Medicine> med = medRepo.findById(medId);
+		if (!med.isPresent()) {
+			return null;
+		}
+		Medicine med1 = med.get();
+		med1.getMedicineQuantity();
+		med1.setMedicineQuantity(quantity);
+		return medRepo.save(med1);
+	}
+
+	
+	@Override
+	public Cart removeCartItem(long cartId) {
 		Optional<Cart> opt = cartRepo.findById(cartId);
 		if (!opt.isPresent()) {
 			return null;
 		}
-		Cart cart1 = opt.get();
-		cart1.setPrice(cart.getPrice());
-		cart1.setMedicineName(cart.getMedicineName());
-		cart1.setQuantity(cart.getQuantity());
-		return cartRepo.save(cart);
+		Cart cart = opt.get();
+		cartRepo.deleteById(cartId);
+		return cart;
 	}
-}
+		 
+	}
+	
 
-/*	@Override
-	//public Cart deleteCartById(Long cartid) {
-		Optional<Cart> opt = cartRepo.findById(cartid);
-		if (!opt.isPresent()) {
-			return null;
-		}
-		Cart car = opt.get();
-		cartRepo.deleteById(car.getCartId());
-		return car;
-	}
+	
+		
 
-	@Override
-	public Cart removeItem(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-}*/
+

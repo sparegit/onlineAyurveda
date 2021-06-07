@@ -12,6 +12,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,30 +28,25 @@ import lombok.ToString;
 public class Cart {
 	// Fields
 	@Id
-	@NonNull
-	@GeneratedValue
 	private long cartId;
 	@NonNull
-	@NotBlank
 	private double price;
 	@NonNull
 	private int quantity=1;
 	@NonNull
-	@NotBlank
 	private double totalAmount;
 	
 	//One to One Mapping
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToOne(targetEntity = Customer.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "customer_fk", referencedColumnName = "customerId")
+	@JoinColumn(name = "customer_Id", referencedColumnName = "customerId")
 	private Customer customer;
 
 	// Many To Many Mapping
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToMany(targetEntity = Medicine.class, cascade = CascadeType.ALL)
-	@JoinTable(name = "cart_med", joinColumns = { @JoinColumn(name = "cart_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "med_id") })
-	private List<Medicine> medicineList = new ArrayList<>();
+	@JoinColumn(name = "medicine_Id", referencedColumnName = "medicineId")
+	private List<Medicine> medicineList;
 	
 	
 

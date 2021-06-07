@@ -2,12 +2,15 @@ package com.cg.spring.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -28,42 +31,47 @@ public class CartController {
 	ICartService cartService;
 
 	// Add
-	//@PostMapping("/cart")
-	//public ResponseEntity<Cart> addItemToCart(@RequestBody Medicine medicine ) {
-		//return new ResponseEntity<>(cartService.addItemToCart(medicine), HttpStatus.OK);
+	@PostMapping("/cart")
+	public ResponseEntity<Cart> addItemToCart(@Valid @RequestBody Cart cart ) {
+		return new ResponseEntity<>(cartService.addItemToCart(cart), HttpStatus.OK);
 	}
 
-/*	// ViewAll
-	@GetMapping("/cart")
+	@GetMapping("/cart/viewAllItems")
 	public ResponseEntity<List<Cart>> viewAllItems() {
-		return new ResponseEntity<>(cartService.viewAllItems(), HttpStatus.OK);
+		logger.info("Viewed Successfully");
+		List<Cart> cart =cartService.viewAllItems();
+		return ResponseEntity.ok(cart);
 	}
+	
+	/**
+	 * This below function is used to update a cart based on the given
+	 * medicineId and redirects to the Cart service
+	 */
 
-	// DeleteAll
-	@DeleteMapping("/cart")
-	public void removeAllItems() {
-		cartService.removeAllItems();
+	@PatchMapping("/cart/update")
+	public ResponseEntity<Medicine> UpdateMedQuantity(int medId, int quantity) {
+		logger.info("Successfully Updated" + medId, quantity);
+		Medicine medicine = cartService.UpdateMedQuantity(medId, quantity);
+		return ResponseEntity.ok(medicine);
 	}
-
-	// Update
-	@PutMapping("/cart/{id}")
-	public ResponseEntity<Cart> updateItemQuantity(@PathVariable("id") Long cartId, @RequestBody Cart cart) {
-
-		Cart car = cartService.updateItemQuantity(cartId, cart);
-		if (car == null) {
-			throw new CartNotFoundException("Cart not found with this id to update" + cartId);
-		}
-		return new ResponseEntity<>(car, HttpStatus.OK);
-	}
+	
 
 	// Delete
 	@DeleteMapping("/cart/{id}")
 	public ResponseEntity<Cart> deleteCartById(@PathVariable("id") Long cartId) {
-		Cart car = cartService.deleteCartById(cartId);
+		Cart car = cartService.removeCartItem(cartId);
 		if (car == null) {
 			throw new CartNotFoundException("Cart  not found with this id to delete" + cartId);
 		}
 		return new ResponseEntity<>(car, HttpStatus.OK);
 	}
-*/
+
+}
+
+	
+	
+	
+
+
+
 

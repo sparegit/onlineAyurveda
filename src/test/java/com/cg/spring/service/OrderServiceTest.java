@@ -80,7 +80,7 @@ class OrderServiceTest {
 	// Testing whether the given medicine fetches the order or not.
 	@Test
 	void testGetOrderListBasedOnMedicineId() {
-		Medicine med = new Medicine(144, "asparagus", 499f, LocalDate.parse("2020-03-13"),
+		Medicine med = new Medicine( "asparagus", 499f, LocalDate.parse("2020-03-13"),
 				LocalDate.parse("2022-06-22"));
 		List<Medicine> medList = new ArrayList<>();
 		medList.add(med);

@@ -57,7 +57,7 @@ public class MedicineController {
 		// to the service layer
 	@PostMapping("")
 	public ResponseEntity<Medicine> addMedicine(@Valid @RequestBody Medicine medicine) {
-		logger.info("View medicine by id");
+		logger.info("Add medicine in the database");
 		Medicine med = medService.addMedicine(medicine);
 		return new ResponseEntity<>(med, HttpStatus.CREATED);
 	}

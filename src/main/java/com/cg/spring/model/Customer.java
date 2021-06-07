@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -24,7 +25,6 @@ import lombok.ToString;
 public class Customer {
 	// Fields
 	@Id
-	@NonNull
 	@GeneratedValue
 	private int customerId;
 	@NonNull
@@ -36,8 +36,6 @@ public class Customer {
 	@NotEmpty
 	private String customerPassword;
 	@NonNull
-	@NotEmpty 
-	@Size(min=10,max = 10,message = "Mobilenumber must have 10 digits")
 	private Long mobileNumber;
 	@NonNull
 	@NotEmpty
@@ -49,8 +47,10 @@ public class Customer {
 	// One to One Mapping
 	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "address_fk", referencedColumnName = "addressId")
+	@JoinColumn(name = "address_Id", referencedColumnName = "addressId")
 	private Address address;
+	
+	
 
 	// Constructor
 	public Customer() {

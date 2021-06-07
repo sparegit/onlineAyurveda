@@ -31,8 +31,8 @@ import lombok.ToString;
 @Entity
 public class Medicine {
 	@Id
-	@Column(name = "medicine_id", nullable = false)
-	@NonNull
+	@Column(name = "medicine_id")
+	
 	@GeneratedValue
 	private int medicineId;
 	
@@ -62,23 +62,10 @@ public class Medicine {
 	public Medicine() {
 	}
 
-	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "medicineList")
-	private List<Cart> cartList;
-
-	@JsonBackReference
-	public List<Cart> getCart() {
-		return cartList;
-	}
 
 	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "medicineList",fetch = FetchType.EAGER)
 	private List<Order> orderList;
 
-	// OneToOne Mapping
-	@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
-	private Category category;
-
+	
 }
