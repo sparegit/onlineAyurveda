@@ -1,4 +1,4 @@
-package com.cg.spring.service;
+/*package com.cg.spring.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -86,3 +86,4 @@ class CategoryServiceMockitoTest {
 	}
 
 }
+*/

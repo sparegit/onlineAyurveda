@@ -58,6 +58,10 @@ public class Medicine {
 	@NonNull
 	@Column(name = "medicine_quantity", nullable = false)
 	private int medicineQuantity = 1;
+	@NonNull
+	private String medicineCategory;
+	@NonNull
+	private String medicineDescription;
 
 	public Medicine() {
 	}
@@ -76,9 +80,9 @@ public class Medicine {
 	private List<Order> orderList;
 
 	// OneToOne Mapping
-	@JsonIgnore
+	/*@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
-	private Category category;
+	private Category category;*/
 
 }

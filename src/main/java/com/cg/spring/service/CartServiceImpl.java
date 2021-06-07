@@ -23,11 +23,12 @@ public class CartServiceImpl implements ICartService {
 
 	@Autowired
 	IMedicineRepository medRepo;
+}
 
-	@Autowired
-	ICustomerRepository custRepo;
+	//@Autowired
+	//ICustomerRepository custRepo;
 	// Used to Store the cart passed as parameter from the Controller function
-	@Override
+/*	@Override
 	public Cart addItemToCart(Medicine medicine) {
 		logger.info("Adding medicines to the cart");
 		Optional<Medicine> med = medRepo.findById(medicine.getMedicineId());
@@ -39,7 +40,7 @@ public class CartServiceImpl implements ICartService {
 		cart.getMedicineList().add(medicine);
 		return cartRepo.save(cart);
 	}
-}
+}*/
 
 	/*@Override
 	public List<Cart> viewAllItems() {

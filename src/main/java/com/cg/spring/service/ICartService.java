@@ -9,7 +9,7 @@ import com.cg.spring.model.Medicine;
 
 @Service
 public interface ICartService {
-	public Cart addItemToCart(Medicine medicine );
+	//public Cart addItemToCart(Medicine medicine );
 }
 	/*public Cart removeItem(int id);
 	public List<Cart> viewAllItems();
