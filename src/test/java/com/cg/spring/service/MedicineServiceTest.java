@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.cg.spring.model.Category;
+//import com.cg.spring.model.Category;
 import com.cg.spring.model.Medicine;
 
 @SpringBootTest
@@ -53,8 +53,8 @@ class MedicineServiceTest {
 	@Test
 	@Disabled
 	public void addMedicine() {
-		Medicine med = new Medicine( "ayurveda", 499f, LocalDate.parse("2020-03-13"),
-				LocalDate.parse("2022-06-22"));
+		Medicine med = new Medicine(3, "ayurveda", 499f, LocalDate.parse("2020-03-13"),
+				LocalDate.parse("2022-06-22"),"fever","asdfghj");
 		Medicine persistedMed = medService.addMedicine(med);
 		logger.info(persistedMed);
 		assertEquals("3", persistedMed.getMedicineId());
@@ -68,8 +68,8 @@ class MedicineServiceTest {
 	@Disabled
 	@Test
 	public void updateMedicine() {
-		Medicine med = new Medicine( "Chandana", 600f, LocalDate.parse("2020-03-13"),
-				LocalDate.parse("2022-06-22"));
+		Medicine med = new Medicine(6, "Chandana", 600f, LocalDate.parse("2020-03-13"),
+				LocalDate.parse("2022-06-22"),"fever","asdfghj");
 		med.setMedicineId(6);
 		med.setMedicineName("Chandana");
 		med.setMedicineCost(600f);
@@ -82,12 +82,12 @@ class MedicineServiceTest {
 
 	}
 	// Testing whether the given id fetches the given category or not.
-	@Test
+	/*@Test
 	@Disabled
 	public void viewCategoryById() {
 		Category cat = medService.viewCategoryById(2);
 		logger.info(cat);
 		assertEquals("caugh", cat.getCategoryName());
-	}
+	}*/
 
 }

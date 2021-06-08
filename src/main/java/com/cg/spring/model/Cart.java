@@ -28,25 +28,21 @@ import lombok.ToString;
 public class Cart {
 	// Fields
 	@Id
+	@GeneratedValue
 	private long cartId;
 	@NonNull
 	private double price;
 	@NonNull
-	private int quantity=1;
+	private int quantity;
 	@NonNull
 	private double totalAmount;
 	
-	//One to One Mapping
-	//@JsonIgnore
-	@OneToOne(targetEntity = Customer.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "customer_Id", referencedColumnName = "customerId")
-	private Customer customer;
 
 	// Many To Many Mapping
 	//@JsonIgnore
 	@ManyToMany(targetEntity = Medicine.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "medicine_Id", referencedColumnName = "medicineId")
-	private List<Medicine> medicineList;
+	private List<Medicine> medicineList = new ArrayList<>();
 	
 	
 

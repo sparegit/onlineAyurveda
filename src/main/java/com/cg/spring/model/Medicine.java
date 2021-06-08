@@ -9,9 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -31,8 +29,8 @@ import lombok.ToString;
 @Entity
 public class Medicine {
 	@Id
-	@Column(name = "medicine_id")
-	
+	@Column(name = "medicine_id", nullable = false)
+	@NonNull
 	@GeneratedValue
 	private int medicineId;
 	
@@ -58,10 +56,22 @@ public class Medicine {
 	@NonNull
 	@Column(name = "medicine_quantity", nullable = false)
 	private int medicineQuantity = 1;
+	@NonNull
+	private String medicineCategory;
+	@NonNull
+	private String medicineDescription;
 
 	public Medicine() {
 	}
 
+	@JsonIgnore
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "medicineList")
+	private List<Cart> cartList;
+
+	@JsonBackReference
+	public List<Cart> getCart() {
+		return cartList;
+	}
 
 	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "medicineList",fetch = FetchType.EAGER)

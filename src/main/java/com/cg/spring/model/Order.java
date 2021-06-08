@@ -1,5 +1,6 @@
 package com.cg.spring.model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -34,13 +35,13 @@ public class Order {
 	@Column(name = "orderId")
 	private int orderId;
     @NonNull
-	private String orderDate;
+	private LocalDate orderDate;
 	@ManyToMany(targetEntity = Medicine.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "ord_med", joinColumns = { @JoinColumn(name = "ord_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "med_id") })
 	private List<Medicine> medicineList;
 	@NonNull
-	private String dispatchDate;
+	private LocalDate dispatchDate;
 	@NotEmpty
 	private float totalCost;
 	@NonNull

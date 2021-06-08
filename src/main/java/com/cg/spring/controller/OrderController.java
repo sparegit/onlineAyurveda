@@ -1,5 +1,6 @@
 package com.cg.spring.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -92,7 +93,7 @@ public class OrderController {
 	// This controller is used to return and list all the orders found in the
 		// database based on the date and request to the service to perform the action
 	@GetMapping("/orders/date/{orderDate}")
-	public ResponseEntity<List<Order>> findAllOrderByDate(@PathVariable("orderDate") String orderDate) {
+	public ResponseEntity<List<Order>> findAllOrderByDate(@PathVariable("orderDate") LocalDate orderDate) {
 		logger.info("Get all orders by date");
 		return new ResponseEntity<>(orderService.findAllOrderByOrderDate(orderDate), HttpStatus.OK);
 	}

@@ -36,8 +36,8 @@ class MedicineServiceMockitoTest {
 
 	@Test
 	void testAddMedicine() {
-		Medicine med = new Medicine( "chandana", 499f, LocalDate.parse("2020-03-13"),
-				LocalDate.parse("2022-06-22"));
+		Medicine med = new Medicine(6, "chandana", 499f, LocalDate.parse("2020-03-13"),
+				LocalDate.parse("2022-06-22"),"fever","abcd");
 
 		Mockito.when(medRepo.save(med)).thenReturn(med);
 		Medicine persistedMed = medService.addMedicine(med);
@@ -51,8 +51,8 @@ class MedicineServiceMockitoTest {
 
 	@Test
 	void testViewMedicine() {
-		Medicine med = new Medicine( "chandana", 499f, LocalDate.parse("2020-03-13"),
-				LocalDate.parse("2022-06-22"));
+		Medicine med = new Medicine(1, "chandana", 499f, LocalDate.parse("2020-03-13"),
+				LocalDate.parse("2022-06-22"),"fever","asdfghj");
 		Mockito.when(medRepo.findById(1)).thenReturn(Optional.of(med));
 		Medicine persistedMed = medService.viewMedicine(1);
 		assertEquals("1", persistedMed.getMedicineId());
@@ -64,17 +64,17 @@ class MedicineServiceMockitoTest {
 
 	@Test
 	void testShowAllMedicine() {
-		Medicine med1 = new Medicine("chandana", 499f, LocalDate.parse("2020-03-13"),
-				LocalDate.parse("2022-06-22"));
-		Medicine med2 = new Medicine("tulasi", 500f, LocalDate.parse("2010-08-01"), LocalDate.parse("2013-05-21"));
-		Medicine med3 = new Medicine( "Chandana", 600f, LocalDate.parse("2020-03-13"),
-				LocalDate.parse("2022-06-22"));
-		Medicine med4 = new Medicine( "Turmeric", 600f, LocalDate.parse("2019-07-06"),
-				LocalDate.parse("2022-05-21"));
-		Medicine med5 = new Medicine("Turmeric", 600f, LocalDate.parse("2019-07-06"),
-				LocalDate.parse("2022-05-21"));
-		Medicine med6 = new Medicine( "Ashvagandha", 500f, LocalDate.parse("2021-05-05"),
-				LocalDate.parse("2019-05-05"));
+		Medicine med1 = new Medicine(1, "chandana", 499f, LocalDate.parse("2020-03-13"),
+				LocalDate.parse("2022-06-22"),"fever","asdfghj");
+		Medicine med2 = new Medicine(2, "tulasi", 500f, LocalDate.parse("2010-08-01"), LocalDate.parse("2013-05-21"),"fever","asdfghj");
+		Medicine med3 = new Medicine(3, "Chandana", 600f, LocalDate.parse("2020-03-13"),
+				LocalDate.parse("2022-06-22"),"fever","asdfghj");
+		Medicine med4 = new Medicine(4, "Turmeric", 600f, LocalDate.parse("2019-07-06"),
+				LocalDate.parse("2022-05-21"),"fever","asdfghj");
+		Medicine med5 = new Medicine(5, "Turmeric", 600f, LocalDate.parse("2019-07-06"),
+				LocalDate.parse("2022-05-21"),"fever","asdfghj");
+		Medicine med6 = new Medicine(10, "Ashvagandha", 500f, LocalDate.parse("2021-05-05"),
+				LocalDate.parse("2019-05-05"),"fever","asdfghj");
 		List<Medicine> medicineList = new ArrayList<>();
 		medicineList.add(med1);
 		medicineList.add(med2);
@@ -89,8 +89,8 @@ class MedicineServiceMockitoTest {
 
 	@Test
 	void testupdateMedicine() {
-		Medicine med = new Medicine( "chandana", 499f, LocalDate.parse("2020-03-13"),
-				LocalDate.parse("2022-06-22"));
+		Medicine med = new Medicine(1, "chandana", 499f, LocalDate.parse("2020-03-13"),
+				LocalDate.parse("2022-06-22"),"fever","asdfghj");
 		Mockito.when(medRepo.findById(1)).thenReturn(Optional.of(med));
 		Mockito.when(medRepo.save(med)).thenReturn(med);
 		Medicine persistedMed = medService.updateMedicine(med);
@@ -103,8 +103,8 @@ class MedicineServiceMockitoTest {
 
 	@Test
 	void testdeleteMedicine() {
-		Medicine med = new Medicine( "chandana", 499f, LocalDate.parse("2020-03-13"),
-				LocalDate.parse("2022-06-22"));
+		Medicine med = new Medicine(1, "chandana", 499f, LocalDate.parse("2020-03-13"),
+				LocalDate.parse("2022-06-22"),"fever","asdfghj");
 		Mockito.when(medRepo.findById(1)).thenReturn(Optional.of(med));
 		medRepo.deleteById(1);
 		Medicine persistedMed = medService.deleteMedicine(1);

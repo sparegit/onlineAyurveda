@@ -1,5 +1,6 @@
 package com.cg.spring.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -94,7 +95,7 @@ public class OrderServiceImplementation implements IOrderService {
 	}
 	// Used to list all the orders from the database
 	@Override
-	public List<Order> findAllOrderByOrderDate(String orderDate) {
+	public List<Order> findAllOrderByOrderDate(LocalDate orderDate) {
 		logger.info("View all orders by date");
 		Optional<List<Order>> opt = Optional.ofNullable(orderRepository.findAllOrderByOrderDate(orderDate));
 		if (!opt.isPresent()) {

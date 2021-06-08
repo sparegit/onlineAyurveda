@@ -44,14 +44,14 @@ class OrderServiceTest {
 		logger.info(order);
 		assertEquals(9, order.getOrderId());
 		assertEquals("pass", order.getStatus());
-		assertEquals("2019-03-29", order.getOrderDate());
-		assertEquals("2020-03-29", order.getDispatchDate());
+		assertEquals(LocalDate.parse("2019-03-29"), order.getOrderDate());
+		assertEquals(LocalDate.parse("2019-03-29"), order.getDispatchDate());
 		assertEquals(200f, order.getTotalCost());
 	}
 	// Testing whether the given date fetches the given order or not.
 	@Test
 	void testFindByOrderDate() {
-		List<Order> orders = orderService.findAllOrderByOrderDate("2020-03-29");
+		List<Order> orders = orderService.findAllOrderByOrderDate(LocalDate.parse("2019-03-29"));
 		logger.info(orders);
 		assertEquals(0, orders.size());
 	}
@@ -59,7 +59,7 @@ class OrderServiceTest {
 	@Test
 	@Disabled
 	void testAddOrder() {
-		Order order = new Order(9, "2019-03-29", null, "2020-03-29", 200f, "pass",null);
+		Order order = new Order(9, LocalDate.parse("2019-03-29"), null, LocalDate.parse("2019-03-29"), 200f, "pass",null);
 		Order persistedOrder = orderService.save(order);
 		logger.info(persistedOrder);
 		assertEquals(9, persistedOrder.getOrderId());
@@ -69,7 +69,7 @@ class OrderServiceTest {
 	// Testing whether the address gets cancelled from the database.
 	@Test
 	void testCancelOrder() {
-		Order order0 = new Order(12, "2019-03-29", null, "2020-03-29", 200f, "fail",null);
+		Order order0 = new Order(12, LocalDate.parse("2019-03-29"), null, LocalDate.parse("2019-03-29"), 200f, "fail",null);
 		orderService.save(order0);
 		Order persistedOrder = orderService.cancelOrder(12);
 		logger.info(persistedOrder);
@@ -80,11 +80,11 @@ class OrderServiceTest {
 	// Testing whether the given medicine fetches the order or not.
 	@Test
 	void testGetOrderListBasedOnMedicineId() {
-		Medicine med = new Medicine( "asparagus", 499f, LocalDate.parse("2020-03-13"),
-				LocalDate.parse("2022-06-22"));
+		Medicine med = new Medicine(144, "asparagus", 499f, LocalDate.parse("2020-03-13"),
+				LocalDate.parse("2022-06-22"),"fever","asdfghj");
 		List<Medicine> medList = new ArrayList<>();
 		medList.add(med);
-		Order order = new Order(4, "2019-03-29", medList, "2020-03-29", 200f, "pass",null);
+		Order order = new Order(4, LocalDate.parse("2019-03-29"), medList, LocalDate.parse("2019-03-29"), 200f, "pass",null);
 		orderService.save(order);
 		List<Order> orders = orderService.findAll();
 		List<Order> ordersWithMedId = new ArrayList<Order>();
@@ -103,7 +103,7 @@ class OrderServiceTest {
 	// Testing the total calculated cost
 	@Test
 	void testCalculateTotalCost() {
-		Order order0 = new Order(12, "2019-03-29", null, "2020-03-29", 200f, "fail",null);
+		Order order0 = new Order(12, LocalDate.parse("2019-03-29"), null, LocalDate.parse("2019-03-29"), 200f, "fail",null);
 		orderService.save(order0);
 		Order ord= orderService.findById(12);
 		logger.info(ord);
@@ -113,7 +113,7 @@ class OrderServiceTest {
 	@Test
 	void testUpdateOrderStatusByUserId() {
 		Order ord = orderService.findById(12);
-		Order order = new Order(12, "2019-03-29", null, "2020-03-29", 200f, "pass",null);
+		Order order = new Order(12, LocalDate.parse("2019-03-29"), null, LocalDate.parse("2019-03-29"), 200f, "pass",null);
 		ord.setStatus(order.getStatus());
 		logger.info(order);
 		assertEquals("pass", ord.getStatus());

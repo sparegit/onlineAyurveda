@@ -7,10 +7,10 @@ import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.spring.model.Category;
+//import com.cg.spring.model.Category;
 import com.cg.spring.model.Medicine;
 import com.cg.spring.model.Order;
-import com.cg.spring.repository.ICategoryRepository;
+//import com.cg.spring.repository.ICategoryRepository;
 import com.cg.spring.repository.IMedicineRepository;
 import com.cg.spring.repository.IOrderRepository;
 
@@ -21,8 +21,8 @@ public class MedicineServiceImpl implements IMedicineService {
 	
 	@Autowired
 	IMedicineRepository medRepo;
-	@Autowired
-	ICategoryRepository catRepo;
+	//@Autowired
+	//ICategoryRepository catRepo;
 	@Autowired
 	IOrderRepository orderRepo;
 	// Get a specific medicine of the given ID
@@ -74,16 +74,7 @@ public class MedicineServiceImpl implements IMedicineService {
 		med.setExpiryDate(medicine.getExpiryDate());
 		return medRepo.save(med);
 	}
-	// Get a specific category of the given ID
-	@Override
-	public Category viewCategoryById(int categoryId) {
-		logger.info("View category by id");
-		Optional<Category> opt = catRepo.findById(categoryId);
-		if (!opt.isPresent()) {
-			return null;
-		}
-		return opt.get();
-	}
+	
 	// Used to update the medicine name of given id and object
 	@Override
 	public Medicine updateMedicineName(int medicineId, Medicine medicine) {
@@ -109,5 +100,12 @@ public class MedicineServiceImpl implements IMedicineService {
 		logger.info("Get order list");
 		return orderRepo.findAll();
 	}
+	//Used to find medicine based on category
+	@Override
+	public List<Medicine> findByMedicineCategory(String medicineCategory) {
+		return medRepo.findByMedicineCategory(medicineCategory);
+		 
+	}
+	
 
 }
