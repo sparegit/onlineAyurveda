@@ -1,5 +1,6 @@
 package com.cg.spring.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.cg.spring.model.Customer;
@@ -26,7 +27,7 @@ public interface IOrderService {
 		public List<Order> getOrderListBasedOnMedicineId(int medicineid);
 
 		// Method to be override by the implementing class
-		public List<Order> findAllOrderByOrderDate(String orderDate);
+		public List<Order> findAllOrderByOrderDate(LocalDate orderDate);
 
 		// Method to be override by the implementing class
 		public double calculateTotalCost(int orderid);

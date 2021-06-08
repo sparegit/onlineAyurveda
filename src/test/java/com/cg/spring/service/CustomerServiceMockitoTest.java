@@ -38,9 +38,9 @@ public class CustomerServiceMockitoTest {
 	@Test
 	@Disabled
 	void testaddCustomer() {
-		Customer customer = new Customer(10, "Bharath", "br230899*", 9200145220L, "bharath88@gmail.com");
+		Customer customer = new Customer("Bharath", "br230899*", 9200145220L, "bharath88@gmail.com");
 
-		Mockito.when(custRepo.save(customer)).thenReturn(customer);
+	Mockito.when(custRepo.save(customer)).thenReturn(customer);
 
 		Customer persistedCust = custService.addCustomer(customer);
 
@@ -56,9 +56,9 @@ public class CustomerServiceMockitoTest {
 	@Disabled
 	void testshowAllCustomers() {
 		Address addr = new Address();
-		Customer customer1 = new Customer(11, "Shilpa", "shilpa454+", 8655296220L, "shipaa33@yahoo.com");
-		Customer customer2 = new Customer(12, "Sara", "s@ra009", 9665210222L, "sara12@yahoo.com");
-		Customer customer3 = new Customer(13, "Siri", "siri4*", 8033278551L, "siriap8@yahoo.com");
+		Customer customer1 = new Customer( "Shilpa", "shilpa454+", 8655296220L, "shipaa33@yahoo.com");
+		Customer customer2 = new Customer( "Sara", "s@ra009", 9665210222L, "sara12@yahoo.com");
+		Customer customer3 = new Customer( "Siri", "siri4*", 8033278551L, "siriap8@yahoo.com");
 		List<Customer> customerList = new ArrayList<>();
 		customerList.add(customer1);
 		customerList.add(customer2);
@@ -74,7 +74,7 @@ public class CustomerServiceMockitoTest {
 	@Test
 	@Disabled
 	void testupdateCustomer() {
-		Customer customer = new Customer(12, "Sara", "sara433*", 9665210222L, "sara123@gmail.com");
+		Customer customer = new Customer( "Sara", "sara433*", 9665210222L, "sara123@gmail.com");
 		Mockito.when(custRepo.findById(12)).thenReturn(Optional.of(customer));
 		Mockito.when(custRepo.save(customer)).thenReturn(customer);
 
@@ -90,7 +90,7 @@ public class CustomerServiceMockitoTest {
 	@Test
 	@Disabled
 	void testviewCustomerById() {
-		Customer customer = new Customer(13, "Siri", "siri4*", 8033278551L, "siriap8@yahoo.com");
+		Customer customer = new Customer( "Siri", "siri4*", 8033278551L, "siriap8@yahoo.com");
 		Mockito.when(custRepo.findById(13)).thenReturn(Optional.of(customer));
 		Customer persistedCust = custService.viewCustomerById(13);
 
@@ -105,7 +105,7 @@ public class CustomerServiceMockitoTest {
 	@Test
 	@Disabled
 	void testdeleteCustomer() {
-		Customer customer = new Customer(11, "Shilpa", "shilpa454+", 8655296220L, "shipaa33@yahoo.com");
+		Customer customer = new Customer( "Shilpa", "shilpa454+", 8655296220L, "shipaa33@yahoo.com");
 		Mockito.when(custRepo.findById(11)).thenReturn(Optional.of(customer));
 		custRepo.deleteById(11);
 		Customer persistedCust = custService.deleteCustomer(11);

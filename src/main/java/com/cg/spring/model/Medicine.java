@@ -9,9 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -67,22 +65,6 @@ public class Medicine {
 	}
 
 	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "medicineList")
-	private List<Cart> cartList;
-
-	@JsonBackReference
-	public List<Cart> getCart() {
-		return cartList;
-	}
-
-	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "medicineList",fetch = FetchType.EAGER)
 	private List<Order> orderList;
 
-	// OneToOne Mapping
-	/*@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
-	private Category category;*/
-
-}

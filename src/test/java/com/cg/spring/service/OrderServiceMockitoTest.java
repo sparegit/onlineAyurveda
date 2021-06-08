@@ -2,6 +2,7 @@ package com.cg.spring.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,15 +36,15 @@ class OrderServiceMockitoTest {
 	@Test
 	@Disabled
 	void testCreateOrder() {
-		Order order = new Order(9, "2019-03-29", null, "2020-03-29", 200f, "pass",null);
+		Order order = new Order(9, LocalDate.parse("2019-03-29"), null, LocalDate.parse("2019-03-29"), 200f, "pass",null);
 
 		Mockito.when(orderRepository.save(order)).thenReturn(order);
 
 		Order persistedOrder = orderService.save(order);
 
 		assertEquals(9, persistedOrder.getOrderId());
-		assertEquals("2020-03-29", persistedOrder.getDispatchDate());
-		assertEquals("2019-03-29", persistedOrder.getOrderDate());
+		assertEquals(LocalDate.parse("2019-03-29"), persistedOrder.getDispatchDate());
+		assertEquals(LocalDate.parse("2019-03-29"), persistedOrder.getOrderDate());
 		assertEquals("pass", persistedOrder.getStatus());
 		assertEquals(200f, persistedOrder.getTotalCost());
 
@@ -52,9 +53,9 @@ class OrderServiceMockitoTest {
 	@Test
 
 	void testshowAllOrders() {
-		Order order0 = new Order(10, "2019-03-29", null, "2020-03-29", 200f, "pass",null);
-		Order order1 = new Order(11, "2019-03-29", null, "2020-03-29", 200f, "pass",null);
-		Order order2 = new Order(12, "2019-03-29", null, "2020-03-29", 200f, "pass",null);
+		Order order0 = new Order(10, LocalDate.parse("2019-03-29"), null, LocalDate.parse("2019-03-29"), 200f, "pass",null);
+		Order order1 = new Order(11, LocalDate.parse("2019-03-29"), null, LocalDate.parse("2019-03-29"), 200f, "pass",null);
+		Order order2 = new Order(12, LocalDate.parse("2019-03-29"), null, LocalDate.parse("2019-03-29"), 200f, "pass",null);
 		List<Order> orderList = new ArrayList<Order>();
 		orderList.add(order0);
 		orderList.add(order1);
@@ -69,7 +70,7 @@ class OrderServiceMockitoTest {
 	@Test
 
 	void testupdateOrder() {
-		Order order0 = new Order(10, "2019-03-29", null, "2020-03-29", 200f, "fail",null);
+		Order order0 = new Order(10, LocalDate.parse("2019-03-29"), null, LocalDate.parse("2019-03-29"), 200f, "fail",null);
 		Mockito.when(orderRepository.findById(10)).thenReturn(Optional.of(order0));
 		Mockito.when(orderRepository.save(order0)).thenReturn(order0);
 
@@ -81,7 +82,7 @@ class OrderServiceMockitoTest {
 
 	@Test
 	void testviewOrderById() {
-		Order ord = new Order(9, "2019-03-29", null, "2020-03-29", 200f ,"fail",null);
+		Order ord = new Order(9, LocalDate.parse("2019-03-29"), null, LocalDate.parse("2019-03-29"), 200f ,"fail",null);
 		orderService.save(ord);
 
 		Mockito.when(orderRepository.findById(9)).thenReturn(Optional.of(ord));
@@ -96,7 +97,7 @@ class OrderServiceMockitoTest {
 	@Test
 	@Disabled
 	void testdeleteOrder() {
-		Order order0 = new Order(10, "2019-03-29", null, "2020-03-29", 200f, "fail",null);
+		Order order0 = new Order(10, LocalDate.parse("2019-03-29"), null, LocalDate.parse("2019-03-29"), 200f, "fail",null);
 		Mockito.when(orderRepository.findById(10)).thenReturn(Optional.of(order0));
 		orderRepository.deleteById(11);
 		Order persistedOrder = orderService.cancelOrder(11);

@@ -31,9 +31,7 @@ public class Category {
 	@NotBlank
 	private String categoryName;
 
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "category")
-	private Medicine medicine;
-
+	
 	// Constructors
 	public Category() {
 	}

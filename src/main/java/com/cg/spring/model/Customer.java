@@ -9,6 +9,7 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -30,7 +31,6 @@ import lombok.ToString;
 public class Customer {
 	// Fields
 	@Id
-	@NonNull
 	@GeneratedValue
 	private int customerId;
 	@NonNull
@@ -55,8 +55,15 @@ public class Customer {
 	// One to One Mapping
 	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "address_fk", referencedColumnName = "addressId")
+	@JoinColumn(name = "address_Id", referencedColumnName = "addressId")
 	private Address address;
+	
+	//One to One Mapping
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="cart_Id", referencedColumnName = "cartId")
+	private Cart cart;
+	
+	
 
 	// Constructor
 	public Customer() {

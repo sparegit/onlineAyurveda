@@ -2,8 +2,6 @@ package com.cg.spring.service;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
-
-//import com.cg.spring.model.Category;
 import com.cg.spring.model.Medicine;
 import com.cg.spring.model.Order;
 
@@ -25,9 +23,6 @@ public interface IMedicineService {
 	public Medicine updateMedicine(Medicine medicine);
 
 	// Method to be override by the implementing class
-	//public Category viewCategoryById(int categoryId);
-
-	// Method to be override by the implementing class
 	public Medicine updateMedicineName(int medicineId, Medicine medicine);
 
 	// Method to be override by the implementing class
@@ -37,9 +32,11 @@ public interface IMedicineService {
 	// custom methods
 	// find by name
 	public Medicine findByMedicineName(String medicineName);
-	
+
+	//Method to be override by the implementing class
+	//custom method
+	//find by category
 	public List<Medicine> findByMedicineCategory(String medicineCategory);
 	
-	/*public List<Medicine> viewMedicineListBasedOnCategory(String categoryName);*/
-
 }
+
