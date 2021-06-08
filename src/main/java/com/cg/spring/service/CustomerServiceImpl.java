@@ -25,6 +25,10 @@ public class CustomerServiceImpl implements ICustomerService {
 	@Override
 	public Customer addCustomer(Customer customer) {
 		logger.info("Adding customer to the database");
+		Optional<Customer> opt = Optional.ofNullable(custRepo.findCustomerByEmail(customer.getEmail()));
+		if(opt.isPresent()) {
+			return null;
+		}
 		return custRepo.save(customer);
 	}
 	// Used to update the customer of given object

@@ -21,10 +21,10 @@ public class MedicineServiceImpl implements IMedicineService {
 	
 	@Autowired
 	IMedicineRepository medRepo;
-	//@Autowired
-	//ICategoryRepository catRepo;
+	
 	@Autowired
 	IOrderRepository orderRepo;
+  
 	// Get a specific medicine of the given ID
 	@Override
 	public Medicine viewMedicine(int medicineId) {
@@ -74,7 +74,7 @@ public class MedicineServiceImpl implements IMedicineService {
 		med.setExpiryDate(medicine.getExpiryDate());
 		return medRepo.save(med);
 	}
-	
+
 	// Used to update the medicine name of given id and object
 	@Override
 	public Medicine updateMedicineName(int medicineId, Medicine medicine) {
@@ -100,7 +100,6 @@ public class MedicineServiceImpl implements IMedicineService {
 		logger.info("Get order list");
 		return orderRepo.findAll();
 	}
-	//Used to find medicine based on category
 	@Override
 	public List<Medicine> findByMedicineCategory(String medicineCategory) {
 		return medRepo.findByMedicineCategory(medicineCategory);

@@ -10,7 +10,7 @@ import com.cg.spring.model.Medicine;
 
 @Service
 public interface ICartService {
-
+  
 	public Cart addCart(Cart cart);
 
 	public List<Cart> viewAllItems();

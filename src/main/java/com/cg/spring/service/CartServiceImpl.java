@@ -34,7 +34,7 @@ public class CartServiceImpl implements ICartService {
 	public Cart addCart(Cart cart) {
 		logger.info("Adding cart in the database");
 		return cartRepo.save(cart);
-	}
+  }
 
 	// Used to view all carts
 	@Override

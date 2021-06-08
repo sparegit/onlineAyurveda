@@ -1,4 +1,4 @@
-package com.cg.spring.service;
+/*package com.cg.spring.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -77,5 +77,24 @@ public class CategoryServiceImpl implements ICategoryService {
 		}
 		return opt.get();
 	}
+	/*@Override
+	public List<Medicine> viewMedicineListBasedOnCategory(Category category) {
+		return medRepo.findAll();
+		
+	}*/
+	/*@Override
+	public List<Medicine> viewMedicineListBasedOnCategory(String categoryName) {
+		catRepo.viewMedicineListBasedOnCategory(categoryName).get(0);
+		catRepo.viewMedicineListBasedOnCategory(categoryName);
+		return catRepo.viewMedicineListBasedOnCategory(categoryName);
+	}*/
+	/*@Override
+	public Medicine findMedicineByCategory(String categoryName) {
+		Optional<Medicine> opt = Optional.ofNullable(medRepo.findMedicineByCategory(categoryName));
+		if (!opt.isPresent()) {
+			return null;
+		}
+		return opt.get();
+	}
 
-}
+}*/

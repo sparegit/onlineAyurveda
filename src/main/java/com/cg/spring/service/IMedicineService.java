@@ -2,8 +2,6 @@ package com.cg.spring.service;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
-
-//import com.cg.spring.model.Category;
 import com.cg.spring.model.Medicine;
 import com.cg.spring.model.Order;
 
@@ -34,12 +32,11 @@ public interface IMedicineService {
 	// custom methods
 	// find by name
 	public Medicine findByMedicineName(String medicineName);
-	
+
 	//Method to be override by the implementing class
 	//custom method
 	//find by category
 	public List<Medicine> findByMedicineCategory(String medicineCategory);
 	
-	
-
 }
+

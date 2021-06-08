@@ -1,4 +1,4 @@
-package com.cg.spring.service;
+/*package com.cg.spring.service;
 
 import java.util.List;
 
@@ -27,5 +27,8 @@ public interface ICategoryService {
 
 		// Method to be override by the implementing class
 		public Medicine viewMedicineById(int medicineId);
+		
+		// Method to be override by the implementing class
+		//public Medicine findMedicineByCategory(String categoryName);
 
-}
+}*/
