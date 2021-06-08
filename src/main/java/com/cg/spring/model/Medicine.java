@@ -67,4 +67,4 @@ public class Medicine {
 	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "medicineList",fetch = FetchType.EAGER)
 	private List<Order> orderList;
-
+}

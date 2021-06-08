@@ -29,8 +29,7 @@ class AddressServiceTest {
 		Address persistedAddr = addrService.save(address);
 		logger.info(persistedAddr);
 		assertEquals(114L, persistedAddr.getAddressId());
-		assertEquals("660", persistedAddr.getDoorNo());
-		assertEquals("rathnam street", persistedAddr.getStreetName());
+		assertEquals("rathnam street", persistedAddr.getLocation());
 		assertEquals("trichy", persistedAddr.getCity());
 	}
 
@@ -49,7 +48,7 @@ class AddressServiceTest {
 	void testViewAddressById() {
 		Address addr = addrService.findAddressById(100);
 		logger.info(addr);
-		assertEquals("LBS", addr.getStreetName());
+		assertEquals("LBS", addr.getCity());
 	}
 
 	//Testing whether the address gets updated to the database.
@@ -58,9 +57,9 @@ class AddressServiceTest {
 	void testupdateAddress() {
 		Address address = new Address(200L,"454","bengaluru","sally street");
 		address.setAddressId(200L);
-		address.setDoorNo("454");
+
 		address.setCity("bengaluru");
-		address.setStreetName("sally street");
+		address.setLocation("sally street");
 		Address addr = addrService.update(address);
 		logger.info(addr);
 		assertEquals("bengaluru", addr.getCity());

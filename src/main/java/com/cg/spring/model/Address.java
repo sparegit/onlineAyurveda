@@ -22,13 +22,14 @@ public class Address {
 	@GeneratedValue
 	long addressId;
 	@NonNull
-	String doorNo;
-	@NonNull
 	@NotBlank
-	String streetName;
+	String location;
 	@NonNull
 	@NotBlank
 	String city;
+	@NonNull
+	@NotBlank
+	String zip;
 
 	// Constructors
 	public Address() {}

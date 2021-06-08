@@ -69,7 +69,7 @@ public class AddressServiceMockitoTest {
 		Mockito.when(addrRepo.findById(113L)).thenReturn(Optional.of(address));
 		Mockito.when(addrRepo.save(address)).thenReturn(address);
 		Address address1 = addrService.update(address);
-		assertEquals("stanley street", address1.getStreetName());
+		assertEquals("stanley street", address1.getLocation());
 	}
 
 	@Test

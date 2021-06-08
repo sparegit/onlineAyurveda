@@ -50,9 +50,8 @@ public class AddressServiceImpl implements IAddressService {
 			return null;
 		}
 
-		addr.get().setAddressId(address.getAddressId());
-		addr.get().setDoorNo(address.getDoorNo());
-		addr.get().setStreetName(address.getStreetName());
+		addr.get().setAddressId(address.getAddressId());	
+		addr.get().setLocation(address.getLocation());
 		addr.get().setCity(address.getCity());
 
 		return addrRepo.save(addr.get());
