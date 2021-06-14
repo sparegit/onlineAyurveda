@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-//import com.cg.spring.model.Category;
 import com.cg.spring.model.Medicine;
-import com.cg.spring.model.Order;
-import com.cg.spring.exception.CategoryNotFoundException;
 import com.cg.spring.exception.MedicineNotFoundException;
 import com.cg.spring.service.IMedicineService;
 

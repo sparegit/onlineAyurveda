@@ -3,13 +3,16 @@ package com.cg.spring.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.cg.spring.checkout.dto.OrderRequest;
+import com.cg.spring.model.Address;
+import com.cg.spring.model.Cart;
 import com.cg.spring.model.Customer;
 import com.cg.spring.model.Order;
 
 public interface IOrderService {
 
 	// Method to be override by the implementing class
-		public Order save(Order order);
+		public Order save(int order, Address adress);
 
 		// Method to be override by the implementing class
 		public Order findById(int order);
@@ -36,5 +39,5 @@ public interface IOrderService {
 		public Order updateOrderStatusByUserId(int id, Order order);
 
 		// Method to be override by the implementing class
-		public List<Order> getOrderListBasedOnCustomer(Customer customer);
+		public List<Order> getOrderListBasedOnCustomer(int custId);
 }

@@ -28,6 +28,9 @@ public class CartServiceImpl implements ICartService {
 
 	@Autowired
 	ICustomerRepository custRepo;
+	
+	@Autowired
+	ICartService cartService;
 
 	// Used to add a cart
 	@Override
@@ -91,12 +94,13 @@ public class CartServiceImpl implements ICartService {
 
 	// Add products to the cart
 	@Override
-	public void addProduct(Medicine product, int custId) {
+	public List<Medicine> addProduct(Medicine product, int custId) {
 		logger.info("Adding products to the cart");
 		Optional<Customer> cust = custRepo.findById(custId);
 		Cart cart = cust.get().getCart();
 		if (cart.getMedicineList().size() == 0) {
 			cart.getMedicineList().add(product);
+			cart.setPrice(cartService.getTotalcost(custId)); 
 			cartRepo.save(cart);
 		} else
 			for (int i = 0; i < cart.getMedicineList().size(); i++) {
@@ -108,6 +112,7 @@ public class CartServiceImpl implements ICartService {
 					cart.getMedicineList().add(product);
 				}
 			}
+		return cart.getMedicineList();
 	}
 
 	// View the products in the cart
@@ -122,22 +127,34 @@ public class CartServiceImpl implements ICartService {
 
 	// Remove product from the cart
 	@Override
-	public void removeProduct(Medicine product, int custId) {
+	public List<Medicine> removeProduct(Medicine product, int custId) {
 		logger.info("Remove products from the cart");
 		Optional<Customer> cust = custRepo.findById(custId);
 		Cart cart = cust.get().getCart();
 
 		for (int i = 0; i < cart.getMedicineList().size(); i++) {
-			if (cart.getMedicineList().get(i).getMedicineId() == product.getMedicineId() && cart.getMedicineList().get(i).getMedicineQuantity()!=1) {
+			if (cart.getMedicineList().get(i).getMedicineId() == product.getMedicineId() && cart.getMedicineList().get(i).getMedicineQuantity()>1) {
 				cart.getMedicineList().get(i).setMedicineQuantity(product.getMedicineQuantity() - 1);
-				medRepo.save(cart.getMedicineList().get(i));
+				cartRepo.save(cart);
 			} else {
 				for (int j = 0; j < cart.getMedicineList().size(); j++)
 				if(cart.getMedicineList().get(j).getMedicineId()==product.getMedicineId()) {
 					cart.getMedicineList().remove(j);
+					cartRepo.save(cart);
 				}
 			}
 		}
+		return cart.getMedicineList();
+	}
 
+	@Override
+	public double getTotalcost(int custId) {
+		Optional<Customer> cust = custRepo.findById(custId);
+		Cart cart = cust.get().getCart();
+		double total=0;
+		for(int i =0;i<cart.getMedicineList().size();i++) {
+		total+=cart.getMedicineList().get(i).getMedicineCost()*cart.getMedicineList().get(i).getMedicineQuantity();
+		}
+		return total;
 	}
 }

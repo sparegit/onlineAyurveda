@@ -39,7 +39,7 @@ public class Cart {
 	
 
 	// Many To Many Mapping
-	//@JsonIgnore
+	@JsonIgnore
 	@ManyToMany(targetEntity = Medicine.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "medicine_Id", referencedColumnName = "medicineId")
 	private List<Medicine> medicineList = new ArrayList<>();

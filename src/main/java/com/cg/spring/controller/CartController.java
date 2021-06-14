@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -20,10 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.spring.exception.CartNotFoundException;
 import com.cg.spring.model.Cart;
+import com.cg.spring.model.Customer;
 import com.cg.spring.model.Medicine;
+import com.cg.spring.repository.ICustomerRepository;
 import com.cg.spring.repository.IMedicineRepository;
 import com.cg.spring.service.ICartService;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class CartController {
 
@@ -35,23 +38,8 @@ public class CartController {
 	// cart
 	@Autowired
 	IMedicineRepository medRepo;
-
-	// This controller is used to create a new or add new cart and redirects it
-	// to the service layer
-	@PostMapping("/cart")
-	public ResponseEntity<Cart> addItemToCart(@Valid @RequestBody Cart cart) {
-		logger.info("Adding items to cart");
-		return new ResponseEntity<>(cartService.addCart(cart), HttpStatus.OK);
-	}
-
-	// This controller is used to view all carts and redirects it
-	// to the service layer
-	@GetMapping("/cart/viewAllItems")
-	public ResponseEntity<List<Cart>> viewAllItems() {
-		logger.info("Viewed Successfully");
-		return new ResponseEntity<>(cartService.viewAllItems(), HttpStatus.OK);
-	}
-
+@Autowired
+ICustomerRepository custrepo;
 	// This controller is used to update the medicine quantity with reference
 	// medicine id and redirects it
 	// to the service layer
@@ -73,29 +61,20 @@ public class CartController {
 		return new ResponseEntity<>(car, HttpStatus.OK);
 	}
 
-	// This controller is used to create a new or add new cart to a customer and
-	// redirects it
-	// to the service layer
-	@PostMapping("/addcarttocustomer/{id}")
-	public ResponseEntity<Cart> addCartToCustomer(@PathVariable("id") int custId) {
-		logger.info("Adding cart to a customer");
-		Cart cart = cartService.addCartToCustomer(custId);
-		return new ResponseEntity<>(cart, HttpStatus.OK);
-	}
 
 	// This controller is used to add products to a cart of a customer and redirects
 	// it
 	// to the service layer
-	@PostMapping("/shoppingCart/addProduct/{productId}/{custId})")
-	public String addProductToCart(@PathVariable("productId") int productId, @PathVariable("custId") int custId) {
+	@PostMapping("/shoppingCart/addProduct/{productId}/{custId}")
+	public List<Medicine> addProductToCart(@PathVariable("productId") int productId, @PathVariable("custId") int custId) {
 		logger.info("Adding products to the cart");
 		Optional<Medicine> med = medRepo.findById(productId);
 		if (med.isPresent()) {
-			cartService.addProduct(med.get(), custId);
-
-			return "added to cart";
-		}
-		return "out of stock";
+	
+			return cartService.addProduct(med.get(), custId); 
+		}else
+			
+		return null;
 	}
 
 	// This controller is used to view all the products in a cart and redirects it
@@ -106,19 +85,25 @@ public class CartController {
 		return cartService.getProductsInCart(custId);
 
 	}
+	
 
 	// This controller is used to delete a product from the cart and redirects it
 	// to the service layer
 	@DeleteMapping("/removecartitem/{productId}/{custId}")
-	public String removeproductfromCart(@PathVariable("productId") int productId, @PathVariable("custId") int custId) {
+	public List<Medicine> removeproductfromCart(@PathVariable("productId") int productId, @PathVariable("custId") int custId) {
 		logger.info("Removing products from the cart");
 		Optional<Medicine> med = medRepo.findById(productId);
 		if (med.isPresent()) {
 			cartService.removeProduct(med.get(), custId);
 
-			return "removed from cart";
-		}
-		return "your cart is empty";
+			return cartService.getProductsInCart(custId);
+		}else
+		return null;
 	}
+	@GetMapping("/gettotal/cart/{custId}")
+	public double getTotalOfCart(@PathVariable("custId") int custId) {
+		logger.info("Getting products in the cart");
+		return cartService.getTotalcost(custId);
 
+	}
 }

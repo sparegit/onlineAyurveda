@@ -9,19 +9,24 @@ import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.spring.checkout.dto.OrderRequest;
 import com.cg.spring.exception.OrderNotFoundException;
+import com.cg.spring.model.Address;
+import com.cg.spring.model.Cart;
 import com.cg.spring.model.Customer;
 import com.cg.spring.model.Order;
 import com.cg.spring.service.IOrderService;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class OrderController {
 	
@@ -51,10 +56,10 @@ public class OrderController {
 
 	// This controller is used to create a new or add new order and redirects it
 	// to the service layer
-	@PostMapping("/order")
-	public ResponseEntity<Order> addOrder(@Valid @RequestBody Order order) {
+	@PostMapping("/order/{id}")
+	public ResponseEntity<Order> addOrder(@Valid @PathVariable("id") int order, @RequestBody Address address) {
 		logger.info("Add order in database");
-		return new ResponseEntity<>(orderService.save(order), HttpStatus.OK);
+		return new ResponseEntity<>(orderService.save(order,address), HttpStatus.OK);
 	}
 	// this controller function perform cancellation of a specific given order
 	// and request the service to perform the action and returns the message as
@@ -98,13 +103,13 @@ public class OrderController {
 		return new ResponseEntity<>(orderService.findAllOrderByOrderDate(orderDate), HttpStatus.OK);
 	}
 
-	@GetMapping("/orders/list/cust/{customer}")
-	public ResponseEntity<List<Order>> getOrderListBasedOnCustomer(@Valid @RequestBody Customer customer) {
+	@GetMapping("/orders/list/cust/{id}")
+	public ResponseEntity<List<Order>> getOrderListBasedOnCustomer(@Valid @PathVariable("id") int customer) {
 		logger.info("View all orders based on customers");
 		List<Order> ord = orderService.getOrderListBasedOnCustomer(customer);
-		String name = customer.getCustomerName();
+
 		if (ord == null) {
-			throw new OrderNotFoundException("Order not found with customer name:" + name);
+			throw new OrderNotFoundException("Order not found with customer name:" + customer);
 		}
 		return new ResponseEntity<>(orderService.getOrderListBasedOnCustomer(customer), HttpStatus.OK);
 	}

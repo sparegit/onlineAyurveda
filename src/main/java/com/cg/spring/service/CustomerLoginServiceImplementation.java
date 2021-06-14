@@ -31,6 +31,11 @@ public class CustomerLoginServiceImplementation implements ICustomerLoginService
 
 			if ( !dbUsr.isPresent() || !dbUsr.get().isLoggedIn()) {
 				user.setLoggedIn(true);
+				if(user.getEmail().equals("admin@admin.com")&& user.getPassword().equals("admin123")) {
+					user.setAdmin(true);
+				}else {
+					user.setAdmin(false);
+				}
 				loginRepo.save(user);
 				cust=registerRepo.findCustomerByEmail(user.getEmail());
 				return cust;
@@ -53,6 +58,9 @@ public class CustomerLoginServiceImplementation implements ICustomerLoginService
 		if (dbUsr != null && dbUsr.getEmail().equals(email) && dbUsr.isLoggedIn()) {
 
 			dbUsr.setLoggedIn(false);
+			if(email.equals("admin@admin.com")) {
+				dbUsr.setAdmin(false);
+			}
 			loginRepo.save(dbUsr);
 			return "logged out";
 		}

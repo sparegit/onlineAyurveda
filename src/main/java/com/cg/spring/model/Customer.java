@@ -1,10 +1,14 @@
 package com.cg.spring.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
@@ -57,14 +61,16 @@ public class Customer {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "address_Id", referencedColumnName = "addressId")
 	private Address address;
-	
+	@JsonIgnore
 	//One to One Mapping
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="cart_Id", referencedColumnName = "cartId")
 	private Cart cart;
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Order> orderListOfaCustomer=new ArrayList<>();
 	
 	
-
 	// Constructor
 	public Customer() {
 	}

@@ -7,8 +7,10 @@ import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.spring.model.Cart;
 import com.cg.spring.model.Customer;
 import com.cg.spring.model.Order;
+import com.cg.spring.repository.ICartRepository;
 import com.cg.spring.repository.ICustomerRepository;
 import com.cg.spring.repository.IOrderRepository;
 
@@ -21,6 +23,13 @@ public class CustomerServiceImpl implements ICustomerService {
 	ICustomerRepository custRepo;
 	@Autowired
 	IOrderRepository orderRepo;
+	
+	@Autowired
+	ICartService cartServ;
+	
+	@Autowired
+	ICartRepository cartRepo;
+	
 	// Used to store the given customer Object passed from the controller
 	@Override
 	public Customer addCustomer(Customer customer) {
@@ -29,7 +38,11 @@ public class CustomerServiceImpl implements ICustomerService {
 		if(opt.isPresent()) {
 			return null;
 		}
-		return custRepo.save(customer);
+		Customer cust=custRepo.save(customer);
+		int id= cust.getCustomerId();
+		Cart cart=cartServ.addCartToCustomer(id);
+		cartRepo.save(cart);
+		return cust;
 	}
 	// Used to update the customer of given object
 	@Override

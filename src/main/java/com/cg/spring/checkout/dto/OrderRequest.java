@@ -1,5 +1,6 @@
 package com.cg.spring.checkout.dto;
 
+import com.cg.spring.model.Address;
 import com.cg.spring.model.Payment;
 
 import lombok.AllArgsConstructor;

@@ -18,20 +18,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.cg.spring.exception.CustomerNotFoundException;
 import com.cg.spring.model.Customer;
-
 import com.cg.spring.service.ICustomerService;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api")
 public class CustomerController {
 	
 	org.apache.logging.log4j.Logger logger = LogManager.getLogger(CustomerController.class);
 	// We are autowiring the customer service layer to this controller layer of
-		// customer
+	// customer
 	@Autowired
 	ICustomerService custService;
 	
@@ -44,10 +41,8 @@ public class CustomerController {
 		if(cust == null) {
 			custService.addCustomer(customer);
 			return new ResponseEntity<>(customer, HttpStatus.OK);
-		}else {
-			cust=null;
 		}
-		return  new ResponseEntity<>(cust, HttpStatus.ALREADY_REPORTED);
+		    throw new CustomerNotFoundException("already registered");	
 	}
 
 	// This controller is used to update a new or add new customer and redirects it

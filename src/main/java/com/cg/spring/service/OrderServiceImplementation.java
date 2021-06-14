@@ -9,18 +9,24 @@ import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.spring.checkout.dto.OrderRequest;
+import com.cg.spring.model.Address;
+import com.cg.spring.model.Cart;
 import com.cg.spring.model.Customer;
 import com.cg.spring.model.Medicine;
 import com.cg.spring.model.Order;
+import com.cg.spring.model.Payment;
 import com.cg.spring.repository.ICustomerRepository;
 import com.cg.spring.repository.IMedicineRepository;
 import com.cg.spring.repository.IOrderRepository;
+import com.cg.spring.repository.IPaymentRepository;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 
 @Service
 public class OrderServiceImplementation implements IOrderService {
-	
+
 	org.apache.logging.log4j.Logger logger = LogManager.getLogger(OrderServiceImplementation.class);
-	
+
 	@Autowired
 	IOrderRepository orderRepository;
 
@@ -28,11 +34,18 @@ public class OrderServiceImplementation implements IOrderService {
 	IMedicineRepository medicineRepo;
 	@Autowired
 	IMedicineService medicineServ;
+	@Autowired
+	ICartService cartService;
 
 	@Autowired
 	ICustomerService customerService;
 	@Autowired
 	ICustomerRepository customerRepo;
+	@Autowired
+	IPaymentService payService;
+	@Autowired
+	IPaymentRepository payRepo;
+
 	// Get a specific order based on the given id.
 	@Override
 	public Order findById(int order) {
@@ -43,18 +56,49 @@ public class OrderServiceImplementation implements IOrderService {
 		}
 		return opt.get();
 	}
+
 	// used to add or place the order
 	@Override
-	public Order save(Order order) {
-		logger.info("Add order to the database");
-		return orderRepository.save(order);
+	public Order save(int id,Address address) {
+		Optional<Customer> cust = customerRepo.findById(id);
+		Cart cart = cust.get().getCart();
+		if (cart.getMedicineList().size() != 0) {
+			LocalDate todaysDate = LocalDate.now();
+			LocalDate dispatchdate = todaysDate.plusDays(2);
+			List<Medicine> orderList = new ArrayList<Medicine>();
+			List<Medicine> cartList = new ArrayList<Medicine>();
+			cartList = cart.getMedicineList();
+			orderList.addAll(cartList);
+			cust.get().setAddress(address);
+			customerRepo.save(cust.get());
+			Order ord = new Order();
+			ord.setCustomer(cust.get());
+			ord.setMedicineList(orderList);
+			ord.setDispatchDate(dispatchdate);
+			ord.setOrderDate(todaysDate);
+			ord.setStatus("Placed");
+			ord.setLocation(address.getLocation());
+//			ord.setLocation(order.getAddress().getLocation());
+			double d=cartService.getTotalcost(id);
+			ord.setTotalCost((float)d +50);
+			logger.info("Add order to the database");
+			cust.get().getOrderListOfaCustomer().add(ord);
+			customerRepo.save(cust.get());
+			Order orderForPayment = orderRepository.save(ord);
+//		 payService.save(orderForPayment.getOrderId());
+			return orderForPayment;
+		}
+		return null;
+
 	}
+
 	// Used to list all the orders from the database
 	@Override
 	public List<Order> findAll() {
 		logger.info("View all orders");
 		return orderRepository.findAll();
 	}
+
 	// Used to update the order of given object
 	@Override
 	public Order update(Order order) {
@@ -64,10 +108,10 @@ public class OrderServiceImplementation implements IOrderService {
 			return null;
 		}
 		Order ord = opt.get();
-		ord.setStatus(order.getStatus());
-		ord.setTotalCost(order.getTotalCost());
+		ord.setLocation(order.getLocation());
 		return orderRepository.save(ord);
 	}
+
 	// Used to cancel the order
 	@Override
 	public Order cancelOrder(int id) {
@@ -81,6 +125,7 @@ public class OrderServiceImplementation implements IOrderService {
 		return ord;
 
 	}
+
 	// Used to calculate the total cost
 	@Override
 	public double calculateTotalCost(int orderId) {
@@ -93,6 +138,7 @@ public class OrderServiceImplementation implements IOrderService {
 		double total = ord.getTotalCost();
 		return total;
 	}
+
 	// Used to list all the orders from the database
 	@Override
 	public List<Order> findAllOrderByOrderDate(LocalDate orderDate) {
@@ -101,9 +147,9 @@ public class OrderServiceImplementation implements IOrderService {
 		if (!opt.isPresent()) {
 			return null;
 		}
-		List<Order> ord = opt.get();
 		return orderRepository.findAllOrderByOrderDate(orderDate);
 	}
+
 	// Used to update the order by using id and object
 	@Override
 	public Order updateOrderStatusByUserId(int id, Order order) {
@@ -115,6 +161,7 @@ public class OrderServiceImplementation implements IOrderService {
 		ord.get().setStatus(order.getStatus());
 		return orderRepository.save(ord.get());
 	}
+
 	// Get order list based on the given medicine id.
 	@Override
 	public List<Order> getOrderListBasedOnMedicineId(int medicineid) {
@@ -124,7 +171,7 @@ public class OrderServiceImplementation implements IOrderService {
 			return null;
 		}
 		List<Order> orders = medicineServ.getOrderList();
-		List<Order> ordersWithMedId = new ArrayList();
+		List<Order> ordersWithMedId = new ArrayList<Order>();
 		for (int i = 0; i < orders.size(); i++) {
 			List<Medicine> medicines = orders.get(i).getMedicineList();
 			for (int j = 0; j < medicines.size(); j++) {
@@ -137,21 +184,16 @@ public class OrderServiceImplementation implements IOrderService {
 	}
 	// Get order list based on the given customer object
 	@Override
-	public List<Order> getOrderListBasedOnCustomer(Customer customer) {
+	public List<Order> getOrderListBasedOnCustomer(int custId) {
 		logger.info("Get order list based on customer");
-		Optional<Customer> cust = customerRepo.findById(customer.getCustomerId());
+		Optional<Customer> cust = customerRepo.findById(custId);
 		if (cust == null) {
 			return null;
 		}
-		List<Order> orders = customerService.showAllOrders();
-		List<Order> ordersOfCustomer = new ArrayList();
-		for (int i = 0; i < orders.size(); i++) {
-			if (orders.get(i).getCustomer().getCustomerId() == cust.get().getCustomerId()) {
-				ordersOfCustomer.add(orders.get(i));
-			}
-		}
+		List<Order> orders = cust.get().getOrderListOfaCustomer();
 
-		return ordersOfCustomer;
+
+		return orders;
 	}
 
 }

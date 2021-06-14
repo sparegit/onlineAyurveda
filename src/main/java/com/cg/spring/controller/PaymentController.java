@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +19,7 @@ import com.cg.spring.model.Payment;
 import com.cg.spring.repository.IPaymentRepository;
 import com.cg.spring.service.IOrderService;
 import com.cg.spring.service.IPaymentService;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class PaymentController {
 	
@@ -44,10 +45,10 @@ public class PaymentController {
 	}
 	// This controller is used to create a new or add new payment and redirects it
 		// to the service layer
-	@PostMapping("/orders/payment/placeorder")
-	public ResponseEntity<Payment> placeOrder(@Valid @RequestBody OrderRequest req) {
+	@PostMapping("/orders/payment/placeorder/{id}")
+	public ResponseEntity<Payment> placeOrder(@Valid  @PathVariable("id") int req) {
 		logger.info("Place order");
-		return new ResponseEntity<>(paymentService.save(req.getPayment()), HttpStatus.OK);
+		return new ResponseEntity<>(paymentService.addPaymentToOrder(req), HttpStatus.OK);
 	}
 
 }

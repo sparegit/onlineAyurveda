@@ -14,6 +14,8 @@ public interface ICartService {
 	public Cart addCart(Cart cart);
 
 	public List<Cart> viewAllItems();
+	
+	public double getTotalcost(int custId);
 
 	public Cart removeCartItem(long cartid);
 
@@ -21,10 +23,11 @@ public interface ICartService {
 
 	public Cart addCartToCustomer(int custId);
 
-	public void addProduct(Medicine product, int custId);
+	public List<Medicine> addProduct(Medicine product, int custId);
 
 	public List<Medicine> getProductsInCart(int custId);
 
-	public void removeProduct(Medicine product, int custId);
+	public List<Medicine> removeProduct(Medicine product, int custId);
+
 
 }
