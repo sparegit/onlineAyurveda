@@ -26,6 +26,7 @@ public interface ICartService {
 	public List<Medicine> addProduct(Medicine product, int custId);
 
 	public List<Medicine> getProductsInCart(int custId);
+	public int totalQuantity(int custId);
 
 	public List<Medicine> removeProduct(Medicine product, int custId);
 

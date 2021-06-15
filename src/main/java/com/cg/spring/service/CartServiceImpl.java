@@ -157,4 +157,16 @@ public class CartServiceImpl implements ICartService {
 		}
 		return total;
 	}
+
+	@Override
+	public int totalQuantity(int custId) {
+		Optional<Customer> cust = custRepo.findById(custId);
+		Cart cart = cust.get().getCart();
+		int total=0;
+		for(int i =0;i<cart.getMedicineList().size();i++) {
+		total+=cart.getMedicineList().get(i).getMedicineQuantity();
+		}
+		return total;
+
+	}
 }

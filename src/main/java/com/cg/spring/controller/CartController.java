@@ -85,6 +85,12 @@ ICustomerRepository custrepo;
 		return cartService.getProductsInCart(custId);
 
 	}
+	@GetMapping("/getquantity/cart/{custId}")
+	public int getQuantity(@PathVariable("custId") int custId) {
+		logger.info("Getting quantity in the cart");
+		return cartService.totalQuantity(custId);
+
+	}
 	
 
 	// This controller is used to delete a product from the cart and redirects it

@@ -18,6 +18,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -51,6 +53,7 @@ public class Order {
 	private String paymentType;
 	@NonNull
 	private String status;
+	@JsonIgnore
 	@ManyToOne(cascade = {CascadeType.ALL,CascadeType.REFRESH})
 	@JoinColumn(name="c_ord_fk",referencedColumnName = "customerId")
 	@NonNull

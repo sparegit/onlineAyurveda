@@ -33,26 +33,26 @@ public class Medicine {
 	@NonNull
 	@GeneratedValue
 	private int medicineId;
-	
+
 	@NonNull
 	@Size(min = 3, message = "Minimum charecters in medicine name should be 3.")
 	@NotEmpty
 	@Column(unique = true, name = "medicine_name", nullable = false)
-	
+
 	private String medicineName;
-	
+
 	@NonNull
 	@Column(name = "medicine_cost", nullable = false)
 	private float medicineCost;
-	
+
 	@NonNull
 	@Column(name = "mfd", nullable = false)
 	private LocalDate mfd;
-	
+
 	@NonNull
 	@Column(name = "expiry_date", nullable = false)
 	private LocalDate expiryDate;
-	
+
 	@NonNull
 	@Column(name = "medicine_quantity", nullable = false)
 	private int medicineQuantity = 1;
@@ -60,11 +60,13 @@ public class Medicine {
 	private String medicineCategory;
 	@NonNull
 	private String medicineDescription;
+	@NonNull
+	private String medicineImage;
 
 	public Medicine() {
 	}
 
 	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "medicineList",fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "medicineList", fetch = FetchType.EAGER)
 	private List<Order> orderList;
 }
