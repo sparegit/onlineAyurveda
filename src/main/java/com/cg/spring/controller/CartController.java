@@ -74,7 +74,7 @@ ICustomerRepository custrepo;
 			return cartService.addProduct(med.get(), custId); 
 		}else
 			
-		return null;
+		return cartService.getProductsInCart(custId); 
 	}
 
 	// This controller is used to view all the products in a cart and redirects it
@@ -95,10 +95,8 @@ ICustomerRepository custrepo;
 		Optional<Medicine> med = medRepo.findById(productId);
 		if (med.isPresent()) {
 			cartService.removeProduct(med.get(), custId);
-
-			return cartService.getProductsInCart(custId);
-		}else
-		return null;
+		}
+		return cartService.getProductsInCart(custId);
 	}
 	@GetMapping("/gettotal/cart/{custId}")
 	public double getTotalOfCart(@PathVariable("custId") int custId) {

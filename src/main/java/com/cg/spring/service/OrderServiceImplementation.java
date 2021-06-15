@@ -70,7 +70,6 @@ public class OrderServiceImplementation implements IOrderService {
 			cartList = cart.getMedicineList();
 			orderList.addAll(cartList);
 			cust.get().setAddress(address);
-			customerRepo.save(cust.get());
 			Order ord = new Order();
 			ord.setCustomer(cust.get());
 			ord.setMedicineList(orderList);
@@ -81,12 +80,11 @@ public class OrderServiceImplementation implements IOrderService {
 //			ord.setLocation(order.getAddress().getLocation());
 			double d=cartService.getTotalcost(id);
 			ord.setTotalCost((float)d +50);
+			ord.setPaymentType("cash on delevery");
 			logger.info("Add order to the database");
 			cust.get().getOrderListOfaCustomer().add(ord);
-			customerRepo.save(cust.get());
-			Order orderForPayment = orderRepository.save(ord);
 //		 payService.save(orderForPayment.getOrderId());
-			return orderForPayment;
+			return  orderRepository.save(ord);
 		}
 		return null;
 

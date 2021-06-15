@@ -48,6 +48,8 @@ public class Order {
 	private String location;
 	private float totalCost;
 	@NonNull
+	private String paymentType;
+	@NonNull
 	private String status;
 	@ManyToOne(cascade = {CascadeType.ALL,CascadeType.REFRESH})
 	@JoinColumn(name="c_ord_fk",referencedColumnName = "customerId")
